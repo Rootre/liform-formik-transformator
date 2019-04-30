@@ -1,0 +1,33 @@
+{
+  "name": "liform-formik-transformator",
+  "version": "1.0.0",
+  "description": "Transformator of symfony liform schema for Formik react library to consume",
+  "main": "pages/index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rootre/liform-formik-transformator.git"
+  },
+  "keywords": [
+    "liform",
+    "formik",
+    "react",
+    "transformator"
+  ],
+  "author": "Ondřej Tůma <ondr@centrum.cz>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rootre/liform-formik-transformator/issues"
+  },
+  "homepage": "https://github.com/Rootre/liform-formik-transformator#readme",
+  "dependencies": {
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
