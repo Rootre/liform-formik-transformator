@@ -3,6 +3,11 @@ import {ErrorMessage, Field} from 'formik';
 
 import FormikRadio from 'Components/FormikRadio';
 
+/**
+ * @type {Field}
+ * @return {React.Component}
+ * @constructor
+ */
 function FormikField({field: {disabled, label, name, radio_titles, radio_values, required, type}}) {
     return (
         <div>

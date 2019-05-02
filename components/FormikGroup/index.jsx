@@ -1,6 +1,13 @@
 import React from 'react';
 import FormikChild from "../FormikChild";
 
+/**
+ *
+ * @param {Children} children
+ * @param {string} title
+ * @return {React.Component}
+ * @constructor
+ */
 function FormikGroup({group: {children, title}}) {
 
     return (

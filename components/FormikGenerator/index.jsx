@@ -1,8 +1,18 @@
 import React from 'react';
 import {Formik, Form} from 'formik';
-import FormikChild from "../FormikChild";
 
-function FormikGenerator({button, defaultValues, onSubmit, structure}) {
+import FormikChild from 'Components/FormikChild';
+
+/**
+ *
+ * @param {React.Component} [button]
+ * @param {object} defaultValues
+ * @param {function} onSubmit
+ * @param {Structure} structure
+ * @return {React.Component}
+ * @constructor
+ */
+function FormikGenerator({button = null, defaultValues, onSubmit, structure}) {
     return (
         <Formik initialValues={defaultValues} onSubmit={onSubmit}>
             {() => {
