@@ -7,7 +7,7 @@ function FormikRadio({name, labels, values}) {
             {values.map((value, i) => (
                 <span key={i}>
                     {labels[i] && <label htmlFor={`${name}.${value}`}>{labels[i]}</label>}
-                    <Field id={`${name}.${value}`} name={name} type={'radio'}/>
+                    <Field id={`${name}.${value}`} value={value} name={name} type={'radio'}/>
                 </span>
             ))}
         </div>
