@@ -4,8 +4,12 @@ import FormikChild from "../FormikChild";
 
 function FormikGenerator({button, defaultValues, structure}) {
 
+    const handleSubmit = props => {
+        console.log(props);
+    };
+
     return (
-        <Formik initialValues={defaultValues}>
+        <Formik initialValues={defaultValues} onSubmit={handleSubmit}>
             {props => {
                 return (
                     <Form>

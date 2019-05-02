@@ -132,15 +132,16 @@ function _generateField(field, name, levels) {
 
 /**
  * Generates form group
- * @param {object} properties
+ * @param {Slug} slug
  * @param {string[]} levels
  * @return {Group}
  * @private
  */
-function _generateGroup(properties, levels) {
+function _generateGroup(slug, levels) {
     return {
+        title: slug.title,
         name: levels[levels.length - 1],
-        children: _generateGroupChildren(properties, levels),
+        children: _generateGroupChildren(slug.properties, levels),
     };
 }
 
@@ -171,7 +172,7 @@ function _generateGroupChildren(properties, levels) {
 function _generateChild(slug, name, levels) {
     return _isGroup(slug)
         ? {
-            group: _generateGroup(slug.properties, [...levels, name]),
+            group: _generateGroup(slug, [...levels, name]),
         }
         : {
             field: _generateField(slug, name, levels),
