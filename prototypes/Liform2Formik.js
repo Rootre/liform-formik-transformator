@@ -72,6 +72,27 @@ function generateDefaultValues() {
     return _generateDefaultValues(liformSchema.properties);
 }
 
+/**
+ * @return {Structure}
+ */
+function generateStructure() {
+    return {
+        title: liformSchema.title,
+        children: _generateGroupChildren(liformSchema.properties, []),
+    }
+}
+
+function generateValidationSchema() {
+
+}
+
+
+/**
+ * Returns schema for formik initialValues parameter
+ * @param {object} properties
+ * @return {object}
+ * @private
+ */
 function _generateDefaultValues(properties) {
     const defaultValues = new Object();
 
@@ -92,22 +113,6 @@ function _generateDefaultValues(properties) {
 
     return defaultValues;
 }
-
-/**
- * @return {Structure}
- */
-function generateStructure() {
-    return {
-        title: liformSchema.title,
-        children: _generateGroupChildren(liformSchema.properties, []),
-    }
-}
-
-function generateValidationSchema() {
-
-}
-
-
 
 /**
  * Generates JSON representation of form field
