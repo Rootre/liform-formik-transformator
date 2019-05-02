@@ -2,15 +2,10 @@ import React from 'react';
 import {Formik, Form} from 'formik';
 import FormikChild from "../FormikChild";
 
-function FormikGenerator({button, defaultValues, structure}) {
-
-    const handleSubmit = props => {
-        console.log(props);
-    };
-
+function FormikGenerator({button, defaultValues, onSubmit, structure}) {
     return (
-        <Formik initialValues={defaultValues} onSubmit={handleSubmit}>
-            {props => {
+        <Formik initialValues={defaultValues} onSubmit={onSubmit}>
+            {() => {
                 return (
                     <Form>
                         {structure.children.map((child, i) => <FormikChild key={i} child={child}/>)}

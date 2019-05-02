@@ -12,6 +12,10 @@ function Index() {
     const structure = transformator.generateStructure();
     const defaultValues = transformator.generateDefaultValues();
 
+    const handleSubmit = props => {
+        console.log(props);
+    };
+
     return (
         <div>
             <Head>
@@ -23,6 +27,7 @@ function Index() {
                 button={<button type={'submit'}>Odeslat</button>}
                 structure={structure}
                 defaultValues={defaultValues}
+                onSubmit={handleSubmit}
             />
         </div>
     )
