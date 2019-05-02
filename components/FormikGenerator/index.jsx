@@ -4,7 +4,6 @@ import {Formik, Form} from 'formik';
 import FormikChild from 'Components/FormikChild';
 
 /**
- *
  * @param {React.Component} [button]
  * @param {object} defaultValues
  * @param {function} onSubmit

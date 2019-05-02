@@ -1,8 +1,8 @@
 import React from 'react';
-import FormikChild from "../FormikChild";
+
+import FormikChild from 'Components/FormikChild';
 
 /**
- *
  * @param {Children} children
  * @param {string} title
  * @return {React.Component}
@@ -11,10 +11,10 @@ import FormikChild from "../FormikChild";
 function FormikGroup({group: {children, title}}) {
 
     return (
-        <div>
-            <strong>{title}</strong>
+        <fieldset>
+            <legend>{title}</legend>
             {children.map((child, i) => <FormikChild key={i} child={child}/>)}
-        </div>
+        </fieldset>
     )
 }
 

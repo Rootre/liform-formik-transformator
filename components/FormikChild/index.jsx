@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FormikGroup from 'Components/FormikGroup';
 import FormikField from 'Components/FormikField';
+import FormikGroup from 'Components/FormikGroup';
 
 /**
  * @param {object} child
