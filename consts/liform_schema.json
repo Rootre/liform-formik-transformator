@@ -6,6 +6,7 @@
       "type": "string",
       "title": "email",
       "widget": "email",
+      "defaultValue": "test@footshop.com",
       "disabled": false,
       "empty": true,
       "required": true,
@@ -22,6 +23,7 @@
             "value": {
               "type": "string",
               "title": "value",
+              "defaultValue": "",
               "attr": {
                 "minLength": 5
               },
@@ -33,6 +35,8 @@
             "verify": {
               "type": "string",
               "title": "verify",
+              "defaultValue": "",
+              
               "disabled": false,
               "empty": true,
               "required": true,
@@ -65,6 +69,7 @@
         "firstName": {
           "type": "string",
           "title": "firstName",
+          "defaultValue": "",
           "widget": "password",
           "disabled": false,
           "empty": true,
@@ -74,6 +79,7 @@
         "lastName": {
           "type": "string",
           "title": "lastName",
+          "defaultValue": "",
           "widget": "password",
           "disabled": false,
           "empty": true,
@@ -83,6 +89,7 @@
         "birth": {
           "type": "string",
           "title": "birth",
+          "defaultValue": "",
           "widget": "date",
           "disabled": false,
           "empty": true,
@@ -92,7 +99,7 @@
         "newsletter": {
           "type": "boolean",
           "title": "newsletter",
-          "defaultValue": false,
+          "defaultValue": "",
           "disabled": false,
           "empty": false,
           "required": false,
@@ -108,7 +115,7 @@
         "privacy-policy-101": {
           "type": "boolean",
           "title": "Stru\u010dn\u00e1 informace o zpracov\u00e1n\u00ed osobn\u00edch \u00fadaj\u016f fyzick\u00fdch osob na\u0161\u00ed spole\u010dnost\u00ed pro marketingov\u00e9 \u00fa\u010dely.",
-          "defaultValue": false,
+          "defaultValue": "",
           "disabled": false,
           "empty": false,
           "required": true,
@@ -120,6 +127,7 @@
     "_token": {
       "type": "string",
       "title": "_token",
+      "defaultValue": "sad1s6198sac1s89c19sa1c9sa8c1d77wq9sd",
       "widget": "password",
       "disabled": false,
       "empty": true,

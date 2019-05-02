@@ -1,8 +1,39 @@
 /**
- * Structure type definition
- * @typedef {Object} Structure
- * @property {string} email
- * @property {string} [nickName]
+ * Structure type definition of transformed liform schema for formik generator
+ * @typedef {object} Structure
+ * @property {string} title
+ * @property {Children} children
+ */
+
+/**
+ * Form Group's children
+ * @typedef {object[]} Children
+ * @property {Field} [field]
+ * @property {Group} [group]
+ */
+
+/**
+ * Form group
+ * @typedef {object} Group
+ * @property {string} name
+ * @property {Children} children
+ */
+
+/**
+ * Part or whole liform schema
+ * @typedef {object} Slug
+ * @property {string} type
+ * @property {object} [properties]
+ * @property {string} [title]
+ */
+
+/**
+ * Form field
+ * @typedef {object} Field
+ * @property {string} label
+ * @property {string} name
+ * @property {string} type
+ * @property {string|boolean} value
  */
 
 
@@ -12,8 +43,29 @@ function Liform2Formik(schema) {
     liformSchema = schema;
 
     return {
+        generateDefaultValues,
         generateStructure,
         generateValidationSchema,
+    }
+}
+
+/**
+ * @return {object}
+ */
+function generateDefaultValues() {
+    return {
+        title: liformSchema.title,
+        children: _generateGroupChildren(liformSchema.properties, []),
+    }
+}
+
+/**
+ * @return {Structure}
+ */
+function generateStructure() {
+    return {
+        title: liformSchema.title,
+        children: _generateGroupChildren(liformSchema.properties, []),
     }
 }
 
@@ -21,20 +73,32 @@ function generateValidationSchema() {
 
 }
 
-/**
- * @return {Structure}
- */
-function generateStructure() {
-    return _generateStructure(liformSchema, liformSchema.title, []);
-}
 
+
+/**
+ * Generates JSON representation of form field
+ * @param {object} field
+ * @param {string} name
+ * @param {string[]} levels
+ * @return {Field}
+ * @private
+ */
 function _generateField(field, name, levels) {
     return {
+        label: field.title,
         name: levels.length > 0 ? `${levels.join('.')}.${name}` : name,
         type: field.type,
+        value: field.defaultValue,
     }
 }
 
+/**
+ * Generates form group
+ * @param {object} properties
+ * @param {string[]} levels
+ * @return {Group}
+ * @private
+ */
 function _generateGroup(properties, levels) {
     return {
         name: levels[levels.length - 1],
@@ -42,17 +106,31 @@ function _generateGroup(properties, levels) {
     };
 }
 
+/**
+ * Generates children for form group
+ * @param {object} properties
+ * @param {string[]} levels
+ * @return {Children}
+ * @private
+ */
 function _generateGroupChildren(properties, levels) {
     const children = [];
 
     for (const name in properties) {
-        children.push(_generateStructure(properties[name], name, levels));
+        children.push(_generateChild(properties[name], name, levels));
     }
 
     return children;
 }
 
-function _generateStructure(slug, name, levels) {
+/**
+ * @param {Slug} slug
+ * @param {string} name
+ * @param {string[]} levels
+ * @return {object}
+ * @private
+ */
+function _generateChild(slug, name, levels) {
     return _isGroup(slug)
         ? {
             group: _generateGroup(slug.properties, [...levels, name]),
@@ -62,12 +140,14 @@ function _generateStructure(slug, name, levels) {
         };
 }
 
+/**
+ * Checks if current slug has nested fields or not
+ * @param {Slug} slug
+ * @return {boolean}
+ * @private
+ */
 function _isGroup(slug) {
-    if (slug.type && slug.type === 'object' && slug.properties && typeof slug.properties === 'object') {
-        return true;
-    }
-
-    return false;
+    return slug.type && slug.type === 'object' && slug.properties && typeof slug.properties === 'object';
 }
 
 export default Liform2Formik;

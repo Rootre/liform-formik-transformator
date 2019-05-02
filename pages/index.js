@@ -8,8 +8,6 @@ function Index() {
     const transformator = new Liform2Formik(liformSchema);
     const structure = transformator.generateStructure();
 
-    console.log('structure', structure);
-
     return (
         <div>
             <Head>
@@ -17,6 +15,7 @@ function Index() {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <h1>Liform -> Formik</h1>
+            <pre>{JSON.stringify(structure)}</pre>
         </div>
     )
 }
