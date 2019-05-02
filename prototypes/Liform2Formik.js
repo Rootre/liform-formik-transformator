@@ -43,11 +43,16 @@
 
 let liformSchema;
 
-const mapWidgetsToFormTypes = {
+const mapLiformWidgetsToFormTypes = {
     email: 'email',
     'choice-expanded': 'radio',
     password: 'password',
     date: 'date',
+};
+
+const mapLiformTypesToFormTypes = {
+    string: 'text',
+    boolean: 'checkbox',
 };
 
 function Liform2Formik(schema) {
@@ -179,11 +184,9 @@ function _generateChild(slug, name, levels) {
  * @private
  */
 function _getFormType(field) {
-    if (!field.widget && field.type === 'boolean') {
-        return 'checkbox';
-    }
-
-    return mapWidgetsToFormTypes[field.widget] || field.widget;
+    return field.widget
+        ? mapLiformWidgetsToFormTypes[field.widget] || field.widget
+        : mapLiformTypesToFormTypes[field.type] || field.type;
 }
 
 /**
