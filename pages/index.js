@@ -1,15 +1,16 @@
 import Head from 'next/head';
 
+import FormikGenerator from 'Components/FormikGenerator';
+
 import liformSchema from 'Consts/liform_schema.json';
 import Liform2Formik from 'Prototypes/Liform2Formik';
 
 function Index() {
 
     const transformator = new Liform2Formik(liformSchema);
+
     const structure = transformator.generateStructure();
     const defaultValues = transformator.generateDefaultValues();
-
-    console.log(defaultValues);
 
     return (
         <div>
@@ -22,6 +23,8 @@ function Index() {
             <pre>{JSON.stringify(structure)}</pre>
             <h2>JSON for default values:</h2>
             <pre>{JSON.stringify(defaultValues)}</pre>
+            <h2>Form:</h2>
+            <FormikGenerator structure={structure} defaultValues={defaultValues}/>
         </div>
     )
 }

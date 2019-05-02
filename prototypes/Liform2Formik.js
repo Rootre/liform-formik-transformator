@@ -30,14 +30,25 @@
 /**
  * Form field
  * @typedef {object} Field
+ * @property {boolean} disabled
  * @property {string} label
  * @property {string} name
+ * @property {string[]} radio_titles
+ * @property {string[]} radio_values
+ * @property {boolean} required
  * @property {string} type
  * @property {string|boolean} value
  */
 
 
 let liformSchema;
+
+const mapWidgetsToFormTypes = {
+    email: 'email',
+    'choice-expanded': 'radio',
+    password: 'password',
+    date: 'date',
+};
 
 function Liform2Formik(schema) {
     liformSchema = schema;
@@ -103,9 +114,13 @@ function generateValidationSchema() {
  */
 function _generateField(field, name, levels) {
     return {
+        disabled: field.disabled,
+        radio_titles: field.enum_titles,
+        radio_values: field.enum,
         label: field.title,
         name: levels.length > 0 ? `${levels.join('.')}.${name}` : name,
-        type: field.type,
+        required: field.required,
+        type: _getFormType(field),
         value: field.defaultValue,
     }
 }
@@ -156,6 +171,19 @@ function _generateChild(slug, name, levels) {
         : {
             field: _generateField(slug, name, levels),
         };
+}
+
+/**
+ * @param {object} field
+ * @return {string}
+ * @private
+ */
+function _getFormType(field) {
+    if (!field.widget && field.type === 'boolean') {
+        return 'checkbox';
+    }
+
+    return mapWidgetsToFormTypes[field.widget] || field.widget;
 }
 
 /**
