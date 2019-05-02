@@ -53,10 +53,28 @@ function Liform2Formik(schema) {
  * @return {object}
  */
 function generateDefaultValues() {
-    return {
-        title: liformSchema.title,
-        children: _generateGroupChildren(liformSchema.properties, []),
+    return _generateDefaultValues(liformSchema.properties);
+}
+
+function _generateDefaultValues(properties) {
+    const defaultValues = new Object();
+
+    for (const name in properties) {
+        const slug = properties[name];
+        let contents;
+
+        if (_isGroup(slug)) {
+            contents = _generateDefaultValues(slug.properties);
+        } else {
+            contents = slug.defaultValue || '';
+        }
+
+        Object.assign(defaultValues, {
+            [name]: contents,
+        });
     }
+
+    return defaultValues;
 }
 
 /**
