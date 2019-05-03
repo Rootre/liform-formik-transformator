@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormikChild from 'Components/FormikChild';
+import FormikChild from '../Child';
 
 /**
  * @param {Children} children

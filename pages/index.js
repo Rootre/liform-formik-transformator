@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import FormikGenerator from 'Components/FormikGenerator';
+import FormikGenerator from 'Components/formik/Generator';
 
 import liformSchema from 'Consts/liform_schema.json';
 import Liform2Formik from 'Prototypes/Liform2Formik';
@@ -11,6 +11,7 @@ function Index() {
 
     const structure = transformator.generateStructure();
     const defaultValues = transformator.generateDefaultValues();
+    const validationSchema = transformator.generateValidationSchema();
 
     const handleSubmit = props => {
         console.log(props);
@@ -28,6 +29,7 @@ function Index() {
                 structure={structure}
                 defaultValues={defaultValues}
                 onSubmit={handleSubmit}
+                validationSchema={validationSchema}
             />
         </div>
     )

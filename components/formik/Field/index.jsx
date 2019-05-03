@@ -1,7 +1,7 @@
 import React from 'react';
 import {ErrorMessage, Field} from 'formik';
 
-import FormikRadio from 'Components/FormikRadio';
+import FormikRadio from '../Radio';
 
 /**
  * @type {Field}

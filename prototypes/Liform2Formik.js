@@ -1,3 +1,5 @@
+import * as Yup from 'yup';
+
 /**
  * Structure type definition of transformed liform schema for formik generator
  * @typedef {object} Structure
@@ -30,6 +32,7 @@
 /**
  * Form field
  * @typedef {object} Field
+ * @property {object} customRules
  * @property {boolean} disabled
  * @property {string} label
  * @property {string} name
@@ -38,6 +41,14 @@
  * @property {boolean} required
  * @property {string} type
  * @property {string|boolean} value
+ */
+
+/**
+ * Field rules for validation
+ * @typedef {object[]} FieldRules
+ * @property {string} method - one of available Yup methods
+ * @property {string} [error]
+ * @property {string} [value]
  */
 
 
@@ -55,6 +66,13 @@ const mapLiformTypesToFormTypes = {
     boolean: 'checkbox',
 };
 
+const mapLiformRulesToYupRules = {
+    required: 'required',
+    maxLength: 'max',
+    minLength: 'min',
+};
+
+
 function Liform2Formik(schema) {
     liformSchema = schema;
 
@@ -64,6 +82,7 @@ function Liform2Formik(schema) {
         generateValidationSchema,
     }
 }
+
 
 /**
  * @return {object}
@@ -82,10 +101,95 @@ function generateStructure() {
     }
 }
 
+/**
+ * @return {Yup}
+ */
 function generateValidationSchema() {
-
+    return _generateValidationSchema(liformSchema.properties);
 }
 
+
+/**
+ * Assemble Yup validation rules for single field.
+ * Example output: Yup.string().min(5, 'Too short').required('Required field')
+ * @param {FieldRules} rules
+ * @private
+ */
+function _assembleValidationRules(rules) {
+    let validationRules = Yup;
+
+    rules.forEach(rule => {
+        const params = [];
+
+        if (['undefined', 'boolean'].indexOf(typeof rule.value) < 0) {
+            params.push(rule.value);
+        }
+        if (typeof rule.error !== 'undefined') {
+            params.push(rule.error);
+        }
+
+        if (validationRules[rule.method]) {
+            validationRules = validationRules[rule.method].apply(validationRules, params);
+        }
+    });
+
+    return validationRules;
+}
+
+/**
+ * Returns schema for formik initialValues parameter
+ * @param {object} properties
+ * @return {Yup}
+ * @private
+ */
+function _generateValidationSchema(properties) {
+    const schema = new Object();
+
+    for (const name in properties) {
+        const slug = properties[name];
+        let contents;
+
+        if (_isGroup(slug)) {
+            contents = _generateValidationSchema(slug.properties);
+        } else {
+            contents = _assembleValidationRules(_getValidationRules(slug));
+        }
+
+        Object.assign(schema, {
+            [name]: contents,
+        });
+    }
+
+    return Yup.object().shape(schema);
+}
+
+/**
+ * @param {object} field
+ * @return {FieldRules}
+ * @private
+ */
+function _getValidationRules(field) {
+    let rules = [];
+
+    if ('type' in field) {
+        rules.push({method: field.type});
+    }
+    if ('attr' in field) {
+        rules = rules.concat(_getValidationRules(field.attr));
+    }
+
+    Object.keys(field).map(type => {
+        if (type in mapLiformRulesToYupRules && !!mapLiformRulesToYupRules[type]) {
+            rules.push({
+                method: mapLiformRulesToYupRules[type],
+                value: field[type],
+                error: `${mapLiformRulesToYupRules[type]} '${field[type]}' error`,  // TODO: once error messages are part of schema, show them here
+            });
+        }
+    });
+
+    return rules;
+}
 
 /**
  * Returns schema for formik initialValues parameter
@@ -124,6 +228,7 @@ function _generateDefaultValues(properties) {
  */
 function _generateField(field, name, levels) {
     return {
+        customRules: field.attr,
         disabled: field.disabled,
         radio_titles: field.enum_titles,
         radio_values: field.enum,

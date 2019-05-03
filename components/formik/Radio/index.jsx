@@ -2,7 +2,6 @@ import React from 'react';
 import {Field} from 'formik';
 
 /**
- *
  * @param {string} name
  * @param {string[]} labels
  * @param {string[]} values
