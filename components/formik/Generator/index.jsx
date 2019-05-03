@@ -8,6 +8,7 @@ import FormikChild from '../Child';
  * @param {object} defaultValues
  * @param {function} onSubmit
  * @param {Structure} structure
+ * @param {object} [validationSchema]
  * @return {React.Component}
  * @constructor
  */

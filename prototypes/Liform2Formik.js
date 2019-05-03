@@ -36,8 +36,8 @@ import * as Yup from 'yup';
  * @property {boolean} disabled
  * @property {string} label
  * @property {string} name
- * @property {string[]} radio_titles
- * @property {string[]} radio_values
+ * @property {string[]} enum_titles
+ * @property {string[]} enum_values
  * @property {boolean} required
  * @property {string} type
  * @property {string|boolean} value
@@ -172,7 +172,7 @@ function _getValidationRules(field) {
     let rules = [];
 
     if ('type' in field) {
-        rules.push({method: field.type});
+        rules.push({method: field.type === 'boolean' ? 'bool' : field.type});
     }
     if ('attr' in field) {
         rules = rules.concat(_getValidationRules(field.attr));
@@ -207,7 +207,7 @@ function _generateDefaultValues(properties) {
         if (_isGroup(slug)) {
             contents = _generateDefaultValues(slug.properties);
         } else {
-            contents = slug.defaultValue || '';
+            contents = slug.type === 'boolean' ? !!slug.defaultValue : slug.defaultValue || '';
         }
 
         Object.assign(defaultValues, {
@@ -230,8 +230,8 @@ function _generateField(field, name, levels) {
     return {
         customRules: field.attr,
         disabled: field.disabled,
-        radio_titles: field.enum_titles,
-        radio_values: field.enum,
+        enum_titles: field.enum_titles,
+        enum_values: field.enum,
         label: field.title,
         name: levels.length > 0 ? `${levels.join('.')}.${name}` : name,
         required: field.required,

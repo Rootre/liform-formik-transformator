@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field} from 'formik';
+import {ErrorMessage, Field} from 'formik';
 
 /**
  * @param {string} name
@@ -8,15 +8,17 @@ import {Field} from 'formik';
  * @return {React.Component}
  * @constructor
  */
-function FormikRadio({name, labels, values}) {
+function FormikRadio({name, label, labels, values}) {
     return (
         <div>
+            {label && <label htmlFor={name}>{label}</label>}
             {values.map((value, i) => (
                 <span key={i}>
                     {labels[i] && <label htmlFor={`${name}.${value}`}>{labels[i]}</label>}
                     <Field id={`${name}.${value}`} value={value} name={name} type={'radio'}/>
                 </span>
             ))}
+            <ErrorMessage name={name}/>
         </div>
     )
 }
