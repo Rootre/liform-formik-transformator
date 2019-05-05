@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {ErrorMessage, Field} from 'formik';
+import {Field} from 'formik';
+
+import FormikError from '../Error';
 
 /**
  * @param {string} name
@@ -25,7 +27,7 @@ function FormikCheckbox({label, name, value}) {
                 )}
             </Field>
             <label htmlFor={name}>{label}</label>
-            <ErrorMessage name={name}/>
+            <FormikError name={name}/>
         </div>
     )
 }

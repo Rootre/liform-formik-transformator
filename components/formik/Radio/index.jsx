@@ -1,5 +1,7 @@
 import React from 'react';
-import {ErrorMessage, Field} from 'formik';
+import {Field} from 'formik';
+
+import FormikError from '../Error';
 
 /**
  * @param {string} name
@@ -18,7 +20,7 @@ function FormikRadio({name, label, labels, values}) {
                     <Field id={`${name}.${value}`} value={value} name={name} type={'radio'}/>
                 </span>
             ))}
-            <ErrorMessage name={name}/>
+            <FormikError name={name}/>
         </div>
     )
 }

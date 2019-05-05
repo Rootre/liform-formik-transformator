@@ -141,11 +141,13 @@
     },
     "select_test": {
       "enum": [
+        "",
         "maso",
         "syr",
         "plevel"
       ],
       "enum_titles": [
+        "Kdo jsi?",
         "Jsem masozravec",
         "Radši sýr",
         "Plant life!"
@@ -153,7 +155,8 @@
       "type": "string",
       "widget": "select",
       "title": "Kdo jsi?",
-      "defaultValue": "plevel",
+      "defaultValue": "",
+      "required": true,
       "propertyOrder": 8
     }
   }

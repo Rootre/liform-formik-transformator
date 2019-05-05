@@ -1,0 +1,25 @@
+.input {
+    // border: 1px solid color(silver);
+    border: 1px solid #c8c8c8;
+    // color: color(tundora);
+    color: #4d4d4d;
+    font-size: 16px;
+    line-height: 1.375;
+    outline: none;
+    padding: 9px 15px;
+
+    &:focus {
+        // border: 1px solid color(tundora);
+        border: 1px solid #4d4d4d;
+    }
+    &.error {
+        border-color: #fa3232;
+    }
+}
+.label {
+    display: block;
+    margin-bottom: 5px;
+}
+.wrapper {
+    padding: 10px;
+}

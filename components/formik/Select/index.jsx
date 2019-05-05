@@ -1,5 +1,7 @@
 import React from 'react';
-import {ErrorMessage, Field} from 'formik';
+import {Field} from 'formik';
+
+import FormikError from '../Error';
 
 /**
  * @param {string} name
@@ -21,7 +23,7 @@ function FormikSelect({name, label, value, labels, values}) {
                     </select>
                 )}
             </Field>
-            <ErrorMessage name={name}/>
+            <FormikError name={name}/>
         </div>
     )
 }
