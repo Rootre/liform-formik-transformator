@@ -25,12 +25,18 @@
               "title": "value",
               "defaultValue": "",
               "attr": {
-                "minLength": 5
+                "minLength": 5,
+                "errors": {
+                  "minLength": "Alespoň 5 znaků"
+                }
               },
               "disabled": false,
               "empty": true,
               "required": true,
-              "propertyOrder": 1
+              "propertyOrder": 1,
+              "errors": {
+                "required": "Vyplňte, nebo uvidíte"
+              }
             },
             "verify": {
               "type": "string",

@@ -41,6 +41,7 @@ import * as Yup from 'yup';
  * @property {boolean} required
  * @property {string} type
  * @property {string|boolean} value
+ * @property {object} [errors]
  */
 
 /**
@@ -209,6 +210,7 @@ function _generateField(field, name, levels) {
         required: field.required,
         type: _getFormType(field),
         value: field.defaultValue,
+        errors: field.errors,
     }
 }
 
@@ -291,6 +293,9 @@ function _getFormType(field) {
 }
 
 function _getValidationError(field, type) {
+    if (field.errors && field.errors[type]) {
+        return field.errors[type];
+    }
     // TODO: once error messages are part of schema, show them here
     return type === 'boolean' ? 'required' : `${mapLiformRulesToYupRules[type]} '${field[type]}' error`;
 }

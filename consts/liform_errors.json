@@ -1,0 +1,53 @@
+{
+    "suggestedResponseStatus": 400,
+    "redirectUrl": null,
+    "message": "Validation Failed",
+    "success": false,
+    "errors": {
+        "children": {
+            "email": {
+                "errors": [
+                    "customer.email.occupied"
+                ]
+            },
+            "password": {
+                "children": {
+                    "pass": {
+                        "children": {
+                            "value": {
+                                "errors": [
+                                    "Tato hodnota není platná."
+                                ]
+                            },
+                            "verify": []
+                        }
+                    }
+                }
+            },
+            "profile": {
+                "children": {
+                    "gender": {
+                        "children": {
+                            "0": [],
+                            "1": [],
+                            "placeholder": []
+                        }
+                    },
+                    "firstName": [],
+                    "lastName": {
+                        "errors": [
+                            "profile.lastName.assert.invalid"
+                        ]
+                    },
+                    "birth": [],
+                    "newsletter": []
+                }
+            },
+            "consent": {
+                "children": {
+                    "privacy-policy-101": []
+                }
+            }
+        }
+    }
+}
