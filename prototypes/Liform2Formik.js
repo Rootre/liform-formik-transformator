@@ -38,6 +38,7 @@ import * as Yup from 'yup';
  * @property {string} name
  * @property {string[]} enum_titles
  * @property {string[]} enum_values
+ * @property {number} order
  * @property {boolean} required
  * @property {string} type
  * @property {string|boolean} value
@@ -205,12 +206,13 @@ function _generateField(field, name, levels) {
         disabled: field.disabled,
         enum_titles: field.enum_titles,
         enum_values: field.enum,
+        errors: field.errors,
         label: field.title,
         name: levels.length > 0 ? `${levels.join('.')}.${name}` : name,
+        order: field.propertyOrder,
         required: field.required,
         type: _getFormType(field),
         value: field.defaultValue,
-        errors: field.errors,
     }
 }
 
