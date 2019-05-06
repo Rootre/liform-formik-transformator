@@ -1,0 +1,72 @@
+@import '~Sass/_helpers.scss';
+
+.label {
+    display: block;
+    margin-bottom: 6px;
+}
+.radio {
+    display: inline-block;
+    margin-right: 20px;
+
+    .error & {
+        label:before {
+            border-color: $red-orange;
+        }
+    }
+    input {
+        opacity: 0;
+        position: absolute;
+
+        &:focus~label:before {
+            border-color: $tundora;
+        }
+        &:disabled~label {
+            cursor: default;
+
+            &:before {
+                background-color: $concrete;
+                border-color: $silver;
+            }
+        }
+        &:checked~label {
+            &:after {
+                @include square(6px);
+                background-color: $white;
+                border-radius: 50%;
+                left: 7px;
+                content: '';
+                position: absolute;
+                top: 7px;
+            }
+            &:before {
+                background-color: $california;
+                border-color: $california;
+            }
+        }
+    }
+    label {
+        cursor: pointer;
+        display: inline-block;
+        padding-left: 27px;
+        position: relative;
+
+        &:before {
+            @include square(18px);
+            border: 1px solid $silver;
+            border-radius: 50%;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+        &:hover:before {
+            border-color: $tundora;
+        }
+    }
+}
+.wrapper {
+    color: $tundora;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 17px;
+}

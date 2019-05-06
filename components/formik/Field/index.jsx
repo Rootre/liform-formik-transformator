@@ -19,9 +19,9 @@ import styles from './style.scss';
 function FormikField({field: {disabled, label, name, enum_titles, enum_values, required, type, value}}) {
     switch (type) {
         case 'checkbox':
-            return <FormikCheckbox name={name} label={label} value={value}/>;
+            return <FormikCheckbox disabled={disabled} name={name} label={label} value={value}/>;
         case 'radio':
-            return <FormikRadio name={name} label={label} labels={enum_titles} values={enum_values}/>;
+            return <FormikRadio disabled={disabled} name={name} label={label} labels={enum_titles} values={enum_values}/>;
         case 'select':
             return <FormikSelect name={name} label={label} labels={enum_titles} value={value} values={enum_values}/>;
         default:

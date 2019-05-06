@@ -1,5 +1,7 @@
+@import '~Sass/_helpers.scss';
+
 .error {
-    color: #fa3232;
+    color: $red-orange;
     font-size: 13px;
     line-height: 20px;
     padding: 5px 0;

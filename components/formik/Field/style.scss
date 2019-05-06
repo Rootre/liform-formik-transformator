@@ -1,25 +1,32 @@
+@import '~Sass/_helpers.scss';
+
 .input {
-    // border: 1px solid color(silver);
-    border: 1px solid #c8c8c8;
-    // color: color(tundora);
-    color: #4d4d4d;
+    border: 1px solid $silver;
+    color: $tundora;
     font-size: 16px;
-    line-height: 1.375;
+    line-height: 30px;
     outline: none;
     padding: 9px 15px;
 
+    &:hover,
     &:focus {
-        // border: 1px solid color(tundora);
-        border: 1px solid #4d4d4d;
+        border: 1px solid $tundora;
     }
     &.error {
-        border-color: #fa3232;
+        border-color: $red-orange;
+    }
+
+    @include media(desktop) {
+        line-height: 20px;
     }
 }
 .label {
+    color: $tundora;
     display: block;
-    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 4px;
 }
 .wrapper {
-    padding: 10px;
+    margin-bottom: 15px;
 }
