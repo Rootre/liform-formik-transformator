@@ -1,0 +1,68 @@
+@import '~Sass/_helpers.scss';
+
+.label {
+    display: block;
+    margin-bottom: 6px;
+}
+.wrapper {
+    color: $tundora;
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 15px;
+    padding-left: 32px;
+    position: relative;
+
+    &.error {
+        label:before {
+            border-color: $red-orange;
+        }
+    }
+    input {
+        opacity: 0;
+        position: absolute;
+
+        &:focus~label:before {
+            border-color: $tundora;
+        }
+        &:disabled~label {
+            cursor: default;
+
+            &:before {
+                background-color: $concrete;
+                border-color: $silver;
+            }
+        }
+        &:checked~label {
+            &:after {
+                @include dim(10px, 4px);
+                border-bottom: 2px solid $white;
+                border-left: 2px solid $white;
+                content: '';
+                left: 4px;
+                position: absolute;
+                top: 5px;
+                transform: rotate(-45deg);
+            }
+            &:before {
+                background-color: $california;
+                border-color: $california;
+            }
+        }
+    }
+    label {
+        cursor: pointer;
+        display: inline-block;
+
+        &:before {
+            @include square(18px);
+            border: 1px solid $silver;
+            content: '';
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+        &:hover:before {
+            border-color: $tundora;
+        }
+    }
+}

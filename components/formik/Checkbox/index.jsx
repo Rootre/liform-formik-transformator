@@ -1,34 +1,42 @@
 import React, {useState} from 'react';
 import {Field} from 'formik';
+import classNames from 'classnames';
 
 import FormikError from '../Error';
+
+import styles from './styles.scss';
+import getFieldError from "../../../helpers/getFieldError";
 
 /**
  * @param {string} name
  * @return {React.Component}
  * @constructor
  */
-function FormikCheckbox({label, name, value}) {
+function FormikCheckbox({disabled, label, name, value}) {
     const [isChecked, setIsChecked] = useState(value);
 
     return (
-        <div>
-            <Field id={name} name={name} type={'checkbox'} value={value}>
-                {({field, form}) => (
+        <Field name={name} value={value}>
+            {({field, form}) => (
+                <div className={classNames(styles.wrapper, {
+                    [styles.error]: getFieldError(name, form.errors),
+                })}>
                     <input
                         {...field}
-                        id={name}
-                        type={'checkbox'}
                         checked={isChecked}
+                        id={name}
+                        disabled={disabled}
                         onChange={() => {
                             form.setFieldValue(name, !isChecked);
                             setIsChecked(!isChecked);
-                        }}/>
-                )}
-            </Field>
-            <label htmlFor={name}>{label}</label>
-            <FormikError name={name}/>
-        </div>
+                        }}
+                        type={'checkbox'}
+                    />
+                    <label htmlFor={name}>{label}</label>
+                    <FormikError name={name}/>
+                </div>
+            )}
+        </Field>
     )
 }
 
