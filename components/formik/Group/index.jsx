@@ -11,11 +11,18 @@ import FormikChild from '../Child';
 function FormikGroup({group: {children, title}}) {
 
     return (
+        <>
+            {children.map((child, i) => <FormikChild key={i} child={child}/>)}
+        </>
+    );
+    /*
+    return (
         <fieldset>
             <legend>{title}</legend>
             {children.map((child, i) => <FormikChild key={i} child={child}/>)}
         </fieldset>
     )
+    */
 }
 
 export default FormikGroup;
