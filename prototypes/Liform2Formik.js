@@ -57,21 +57,25 @@ import * as Yup from 'yup';
 let liformSchema;
 
 const mapLiformWidgetsToFormTypes = {
-    email: 'email',
+    choice: 'select',
     'choice-expanded': 'radio',
-    password: 'password',
+    'choice-multiple-expanded': 'checkboxes',
     date: 'date',
+    email: 'email',
+    password: 'password',
 };
 
 const mapLiformTypesToFormTypes = {
-    string: 'text',
     boolean: 'checkbox',
+    string: 'text',
 };
 
-const mapLiformRulesToYupRules = {
-    required: 'required',
+const mapLiformTypesToYupMethods = {
+    choice: 'string',
     maxLength: 'max',
     minLength: 'min',
+    required: 'required',
+    string: 'string',
 };
 
 
@@ -118,6 +122,10 @@ function generateValidationSchema() {
  * @private
  */
 function _assembleValidationRules(rules) {
+    if (!Array.isArray(rules) || rules.length < 2) {
+        return false;
+    }
+
     let validationRules = Yup;
 
     rules.forEach(rule => {
@@ -157,7 +165,7 @@ function _generateValidationSchema(properties) {
             contents = _assembleValidationRules(_getValidationRules(slug));
         }
 
-        Object.assign(schema, {
+        contents && Object.assign(schema, {
             [name]: contents,
         });
     }
@@ -294,12 +302,18 @@ function _getFormType(field) {
         : mapLiformTypesToFormTypes[field.type] || field.type;
 }
 
+/**
+ * @param {object} field
+ * @param {string} type
+ * @return {string}
+ * @private
+ */
 function _getValidationError(field, type) {
     if (field.errors && field.errors[type]) {
         return field.errors[type];
     }
     // TODO: once error messages are part of schema, show them here
-    return type === 'boolean' ? 'required' : `${mapLiformRulesToYupRules[type]} '${field[type]}' error`;
+    return type === 'boolean' ? 'required' : `${mapLiformTypesToYupMethods[type]} '${field[type]}' error`;
 }
 
 /**
@@ -310,20 +324,26 @@ function _getValidationError(field, type) {
 function _getValidationRules(field) {
     let rules = [];
 
+    if (typeof field !== 'object') {
+        return [];
+    }
+
     if ('type' in field) {
         if (field.type === 'boolean' && 'required' in field && field.required) {
             return _getCheckboxValidationRule(field);
         }
-        rules.push({method: field.type});
+        if (mapLiformTypesToYupMethods[field.type]) {
+            rules.push({method: mapLiformTypesToYupMethods[field.type]});
+        }
     }
     if ('attr' in field) {
         rules = rules.concat(_getValidationRules(field.attr));
     }
 
     Object.keys(field).map(type => {
-        if (type in mapLiformRulesToYupRules && mapLiformRulesToYupRules[type] && field[type]) {
+        if (type in mapLiformTypesToYupMethods && mapLiformTypesToYupMethods[type] && field[type]) {
             rules.push({
-                method: mapLiformRulesToYupRules[type],
+                method: mapLiformTypesToYupMethods[type],
                 value: field[type],
                 error: _getValidationError(field, type),
             });

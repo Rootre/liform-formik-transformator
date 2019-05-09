@@ -4,8 +4,9 @@ import classNames from 'classnames';
 
 import FormikError from '../Error';
 
+import getFieldError from 'Helpers/getFieldError';
+
 import styles from './styles.scss';
-import getFieldError from "../../../helpers/getFieldError";
 
 /**
  * @param {string} name

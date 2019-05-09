@@ -1,0 +1,177 @@
+{
+  "success": true,
+  "suggestedResponseStatus": 200,
+  "message": null,
+  "redirectUrl": "",
+  "address_form": {
+    "title": "form.address_form.label",
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "title": "form.firstName.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "required": true,
+        "attr": {
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 1
+      },
+      "lastName": {
+        "type": "string",
+        "title": "form.lastName.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 2
+      },
+      "company": {
+        "type": "string",
+        "title": "form.company.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "required": false,
+        "propertyOrder": 3
+      },
+      "countryIsoCode": {
+        "enum": [
+          "AF",
+          "AX",
+          "AL",
+          "DZ",
+          "AS",
+          "VI",
+          "ZW"
+        ],
+        "enum_titles": [
+          "Afgh\u00e1nist\u00e1n",
+          "\u00c5landy",
+          "Alb\u00e1nie",
+          "Pob\u0159e\u017e\u00ed slonoviny",
+          "Polsko",
+          "Z\u00e1padn\u00ed Sahara",
+          "Zimbabwe"
+        ],
+        "widget": "choice",
+        "title": "form.countryIsoCode.label",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 4
+      },
+      "city": {
+        "type": "string",
+        "title": "form.city.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 5
+      },
+      "street": {
+        "type": "string",
+        "title": "form.street.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 6
+      },
+      "streetNumber": {
+        "type": "string",
+        "title": "form.streetNumber.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 7
+      },
+      "phone": {
+        "type": "string",
+        "title": "form.phone.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "required": false,
+        "propertyOrder": 8
+      },
+      "phoneCell": {
+        "type": "string",
+        "title": "form.phoneCell.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "required": false,
+        "propertyOrder": 9
+      },
+      "postcode": {
+        "type": "string",
+        "title": "form.postcode.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 10
+      },
+      "note": {
+        "type": "string",
+        "title": "form.note.label",
+        "widget": "textarea",
+        "disabled": false,
+        "empty": true,
+        "required": false,
+        "propertyOrder": 11
+      },
+      "alias": {
+        "type": "string",
+        "title": "form.alias.label",
+        "widget": "string",
+        "disabled": false,
+        "empty": true,
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "form.validation.message.isRequired"
+          }
+        },
+        "propertyOrder": 12
+      }
+    }
+  }
+}

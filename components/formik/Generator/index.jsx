@@ -15,14 +15,12 @@ import FormikChild from '../Child';
 function FormikGenerator({button = null, defaultValues, onSubmit, structure, validationSchema = {}}) {
     return (
         <Formik initialValues={defaultValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            {() => {
-                return (
-                    <Form>
-                        {structure.children.map((child, i) => <FormikChild key={i} child={child}/>)}
-                        {button}
-                    </Form>
-                )
-            }}
+            {() => (
+                <Form>
+                    {structure.children.map((child, i) => <FormikChild key={i} child={child}/>)}
+                    {button}
+                </Form>
+            )}
         </Formik>
     )
 }

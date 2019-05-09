@@ -1,0 +1,259 @@
+{
+  "forms": [
+    {
+      "title": "form.registration_form.label",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "E-mail",
+          "widget": "email",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "attr": {
+            "errors": {
+              "required": "Toto pole je povinn\u00e9"
+            }
+          },
+          "propertyOrder": 1
+        },
+        "password": {
+          "title": "Heslo",
+          "type": "object",
+          "properties": {
+            "pass": {
+              "title": "form.pass.label",
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "title": "form.value.label",
+                  "attr": {
+                    "minLength": 5,
+                    "errors": {
+                      "minLength": "Nejm\u00e9n\u011b po\u017eadov\u00e1no 5 znak\u016f",
+                      "required": "Toto pole je povinn\u00e9"
+                    }
+                  },
+                  "widget": "password",
+                  "disabled": false,
+                  "empty": true,
+                  "required": true,
+                  "propertyOrder": 1
+                },
+                "verify": {
+                  "type": "string",
+                  "title": "form.verify.label",
+                  "widget": "password",
+                  "disabled": false,
+                  "empty": true,
+                  "required": true,
+                  "attr": {
+                    "errors": {
+                      "required": "Toto pole je povinn\u00e9"
+                    }
+                  },
+                  "propertyOrder": 2
+                }
+              },
+              "propertyOrder": 1
+            }
+          },
+          "propertyOrder": 2
+        },
+        "expanded_select": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "one",
+              "two",
+              "three"
+            ],
+            "enum_titles": [
+              "choice one",
+              "2",
+              "3"
+            ],
+            "minItems": 1
+          },
+          "uniqueItems": true,
+          "type": "array",
+          "widget": "choice-multiple-expanded",
+          "title": "form.expanded_select.label",
+          "propertyOrder": 3
+        },
+        "no_expanded_select": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "choice one",
+              "two",
+              "three"
+            ],
+            "enum_titles": [
+              "0",
+              "1",
+              "2"
+            ],
+            "minItems": 1
+          },
+          "uniqueItems": true,
+          "type": "array",
+          "title": "form.no_expanded_select.label",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "attr": {
+            "errors": {
+              "required": "Toto pole je povinn\u00e9"
+            }
+          },
+          "propertyOrder": 4
+        },
+        "profile": {
+          "title": "form.profile.label",
+          "type": "object",
+          "properties": {
+            "gender": {
+              "enum": [
+                "male",
+                "female"
+              ],
+              "enum_titles": [
+                "Pan",
+                "Pan\u00ed"
+              ],
+              "type": "choice",
+              "widget": "choice-expanded",
+              "title": "Osloven\u00ed",
+              "propertyOrder": 1
+            },
+            "firstName": {
+              "type": "string",
+              "title": "Jm\u00e9no",
+              "widget": "string",
+              "disabled": false,
+              "empty": true,
+              "required": true,
+              "attr": {
+                "errors": {
+                  "required": "Toto pole je povinn\u00e9"
+                }
+              },
+              "propertyOrder": 2
+            },
+            "lastName": {
+              "type": "string",
+              "title": "P\u0159\u00edjmen\u00ed",
+              "widget": "string",
+              "disabled": false,
+              "empty": true,
+              "required": true,
+              "attr": {
+                "errors": {
+                  "required": "Toto pole je povinn\u00e9"
+                }
+              },
+              "propertyOrder": 3
+            },
+            "birth": {
+              "type": "string",
+              "title": "Datum narozen\u00ed",
+              "widget": "date",
+              "disabled": false,
+              "empty": true,
+              "required": false,
+              "propertyOrder": 4
+            },
+            "newsletter": {
+              "type": "boolean",
+              "title": "P\u0159ij\u00edmat speci\u00e1ln\u00ed nab\u00eddky od na\u0161ich partner\u016f",
+              "defaultValue": "",
+              "disabled": false,
+              "empty": false,
+              "required": false,
+              "propertyOrder": 5
+            }
+          },
+          "propertyOrder": 5
+        },
+        "consent": {
+          "title": "form.consent.label",
+          "type": "object",
+          "properties": {
+            "privacy-policy-101": {
+              "type": "boolean",
+              "title": "form.privacy-policy-101.label",
+              "defaultValue": "",
+              "disabled": false,
+              "empty": false,
+              "required": true,
+              "attr": {
+                "errors": {
+                  "required": "Toto pole je povinn\u00e9"
+                }
+              },
+              "propertyOrder": 1
+            }
+          },
+          "propertyOrder": 6
+        },
+        "_csrf_token": {
+          "type": "string",
+          "title": "form._csrf_token.label",
+          "widget": "hidden",
+          "defaultValue": "HqRtU9MSaveYPtwuvf68yqXZgqWNexXiSljRxCtJbLQ",
+          "disabled": false,
+          "empty": true,
+          "required": false,
+          "propertyOrder": 7
+        }
+      }
+    },
+    {
+      "title": "login_form",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "email",
+          "widget": "email",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "attr": {
+            "errors": {
+              "required": "form.validation.message.isRequired"
+            }
+          },
+          "propertyOrder": 1
+        },
+        "password": {
+          "type": "string",
+          "title": "password",
+          "widget": "password",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "attr": {
+            "errors": {
+              "required": "form.validation.message.isRequired"
+            }
+          },
+          "propertyOrder": 2
+        },
+        "_csrf_token": {
+          "type": "string",
+          "title": "_csrf_token",
+          "widget": "hidden",
+          "defaultValue": "mXB8IH16TBddZRgtivXmgLEagT08Dv2FpZ6DzWfWEvU",
+          "disabled": false,
+          "empty": true,
+          "required": false,
+          "propertyOrder": 3
+        }
+      }
+    }
+  ]
+}

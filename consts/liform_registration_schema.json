@@ -1,0 +1,88 @@
+{
+  "title": "form.registration_form.label",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "title": "E-mail",
+      "widget": "email",
+      "disabled": false,
+      "empty": true,
+      "required": true,
+      "propertyOrder": 1
+    },
+    "profile": {
+      "title": "form.profile.label",
+      "type": "object",
+      "properties": {
+        "gender": {
+          "enum": [
+            "male",
+            "female"
+          ],
+          "enum_titles": [
+            "Pan",
+            "Paní"
+          ],
+          "type": "string",
+          "widget": "choice-expanded",
+          "title": "gender",
+          "propertyOrder": 1
+        },
+        "firstName": {
+          "type": "string",
+          "title": "Jm\u00e9no",
+          "widget": "string",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "propertyOrder": 2
+        },
+        "lastName": {
+          "type": "string",
+          "title": "P\u0159\u00edjmen\u00ed",
+          "widget": "string",
+          "disabled": false,
+          "empty": true,
+          "required": true,
+          "propertyOrder": 3
+        },
+        "birth": {
+          "type": "string",
+          "title": "Datum narozen\u00ed",
+          "widget": "date",
+          "disabled": false,
+          "empty": true,
+          "required": false,
+          "propertyOrder": 4
+        },
+        "newsletter": {
+          "type": "boolean",
+          "title": "P\u0159ij\u00edmat speci\u00e1ln\u00ed nab\u00eddky od na\u0161ich partner\u016f",
+          "defaultValue": "",
+          "disabled": false,
+          "empty": false,
+          "required": false,
+          "propertyOrder": 5
+        }
+      },
+      "propertyOrder": 5
+    },
+    "consent": {
+      "title": "form.consent.label",
+      "type": "object",
+      "properties": {
+        "privacy-policy-101": {
+          "type": "boolean",
+          "title": "cokoliv, souhlas!",
+          "defaultValue": "",
+          "disabled": false,
+          "empty": false,
+          "required": true,
+          "propertyOrder": 1
+        }
+      },
+      "propertyOrder": 6
+    }
+  }
+}
