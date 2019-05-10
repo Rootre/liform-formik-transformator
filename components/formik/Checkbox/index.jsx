@@ -9,18 +9,18 @@ import getFieldError from 'Helpers/getFieldError';
 import styles from './styles.scss';
 
 /**
- * @param {string} name
+ * @param {object} field
  * @return {React.Component}
  * @constructor
  */
-function FormikCheckbox({disabled, label, name, value}) {
+function FormikCheckbox({field: {disabled, label, name, value}}) {
     const [isChecked, setIsChecked] = useState(value);
 
     return (
         <Field name={name} value={value}>
             {({field, form}) => (
                 <div className={classNames(styles.wrapper, {
-                    [styles.error]: getFieldError(name, form.errors),
+                    [styles.error]: getFieldError(name, form),
                 })}>
                     <input
                         {...field}

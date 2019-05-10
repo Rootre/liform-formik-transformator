@@ -9,24 +9,22 @@ import getFieldError from 'Helpers/getFieldError';
 import styles from './styles.scss';
 
 /**
- * @param {string} name
- * @param {string[]} labels
- * @param {string[]} values
+ * @param {object} field
  * @return {React.Component}
  * @constructor
  */
-function FormikRadio({disabled, name, label, labels, values}) {
+function FormikRadio({field: {disabled, enum_titles, enum_values, name, label}}) {
     return (
         <Field name={name}>
             {({field, form}) => (
                 <div className={classNames(styles.wrapper, {
-                    [styles.error]: getFieldError(name, form.errors),
+                    [styles.error]: getFieldError(name, form),
                 })}>
                     {label && <label className={styles.label} htmlFor={name}>{label}</label>}
-                    {values.map((value, i) => (
+                    {enum_values.map((value, i) => (
                         <span className={styles.radio} key={i}>
                             <input {...field} id={`${name}.${value}`} type={'radio'} value={value} disabled={disabled}/>
-                            {labels[i] && <label htmlFor={`${name}.${value}`}>{labels[i]}</label>}
+                            {enum_titles[i] && <label htmlFor={`${name}.${value}`}>{enum_titles[i]}</label>}
                         </span>
                     ))}
                     <FormikError name={name}/>

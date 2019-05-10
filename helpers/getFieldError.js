@@ -1,17 +1,32 @@
-export default function (name, errors) {
-    const levels = name.split('.');
+export default function (name, form) {
+    return _getLevelError(name.split('.'), form.errors, form.touched);
+}
 
-    let output = errors[levels.shift()];
+/**
+ * @param {string[]} name - result of name.split('.')
+ * @param {object} errors
+ * @param {object} touched
+ * @private
+ */
+function _getLevelError(name, errors, touched) {
+    const nameSlug = name[0];
 
-    if (typeof output !== 'object') {
+    if (!errors[nameSlug] || !touched[nameSlug]) {
         return false;
     }
 
-    levels.map(level => {
-        if (output[level]) {
-            output = output[level];
-        }
-    });
+    const errorsSlug = errors[nameSlug];
 
-    return typeof output === 'string' ? output : false;
+    let output = '';
+
+    switch (typeof errorsSlug) {
+        case 'object':
+            output = _getLevelError(name.slice(1), errorsSlug, touched[nameSlug]);
+            break;
+        case 'string':
+            output = touched[nameSlug] ? errorsSlug : '';
+            break;
+    }
+
+    return output;
 }

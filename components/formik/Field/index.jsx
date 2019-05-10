@@ -17,14 +17,14 @@ import styles from './style.scss';
  * @return {React.Component}
  * @constructor
  */
-function FormikField({field, field: {disabled, label, name, enum_titles, enum_values, required, type, value}}) {
+function FormikField({field, field: {disabled, label, name, required, type}}) {
     switch (type) {
         case 'checkbox':
-            return <FormikCheckbox disabled={disabled} name={name} label={label} value={value}/>;
+            return <FormikCheckbox field={field}/>;
         case 'radio':
-            return <FormikRadio disabled={disabled} name={name} label={label} labels={enum_titles} values={enum_values}/>;
+            return <FormikRadio field={field}/>;
         case 'select':
-            return <FormikSelect name={name} label={label} labels={enum_titles} value={value} values={enum_values}/>;
+            return <FormikSelect field={field}/>;
         case 'hidden':
             return <Field name={name} type={'hidden'}/>;
         case 'checkboxes':
@@ -36,7 +36,7 @@ function FormikField({field, field: {disabled, label, name, enum_titles, enum_va
                         <div className={styles.wrapper}>
                             {label && <label className={styles.label} htmlFor={name}>{label}</label>}
                             <input className={classNames(styles.input, {
-                                [styles.error]: getFieldError(name, form.errors),
+                                [styles.error]: getFieldError(name, form),
                             })} disabled={disabled} id={name} type={type} {...field}/>
                             <FormikError name={name}/>
                         </div>
