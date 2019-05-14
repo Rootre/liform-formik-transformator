@@ -14,7 +14,7 @@ function Dropdown({
                       onDidMount,
                       onSelect,
                       placeholder,
-                      searchKey,
+                      nameKey,
                   }) {
     const [opened, setOpened] = useState(false);
     const [active, setActive] = useState(activeItem || items[0]);
@@ -30,7 +30,7 @@ function Dropdown({
         }
     }, []);
     useEffect(() => {
-        if (!activeItem || activeItem[searchKey] === active[searchKey]) {
+        if (!activeItem || activeItem[nameKey] === active[nameKey]) {
             return;
         }
 
@@ -74,12 +74,12 @@ function Dropdown({
             [styles.opened]: opened,
         })}>
             <p className={styles.activeItem} onClick={() => toggleOpen()}>
-                {_activeItemHTML(activeItemTemplate, searchKey, active)}
+                {_activeItemHTML(activeItemTemplate, nameKey, active)}
             </p>
             {opened && (
                 <div className={styles.dropdownContent}>
                     <div className={styles.list}>
-                        {_itemsTemplate(items, itemTemplate, searchKey, select)}
+                        {_itemsTemplate(items, itemTemplate, nameKey, select)}
                     </div>
                 </div>
             )}
@@ -87,18 +87,18 @@ function Dropdown({
     )
 }
 
-function _activeItemHTML(activeItemTemplate, searchKey, activeItem) {
+function _activeItemHTML(activeItemTemplate, nameKey, activeItem) {
     return activeItemTemplate
         ? activeItemTemplate(activeItem)
-        : <span>{activeItem[searchKey]}</span>;
+        : <span>{activeItem[nameKey]}</span>;
 }
 
-function _itemsTemplate(items, itemTemplate, searchKey, onClick) {
+function _itemsTemplate(items, itemTemplate, nameKey, onClick) {
     return items.map((item, i) => (
         <div key={i} className={styles.item} onClick={e => onClick(item, e)}>
             {itemTemplate
                 ? itemTemplate(item)
-                : <span>{item[searchKey]}</span>
+                : <span>{item[nameKey]}</span>
             }
         </div>
     ));
@@ -112,7 +112,7 @@ function _itemsTemplate(items, itemTemplate, searchKey, onClick) {
  * @property {function} [itemTemplate] - takes item and event object and returns jsx
  * @property {function} [onSelect] - fires upon item selection
  * @property {string} [placeholder] - placeholder text to show if no item is selected
- * @property {string} searchKey - item key
+ * @property {string} nameKey - item key
  * @property {object} [activeItem] - currently selected item
  * @property {boolean} [disabled] - when dropdown is disabled, it will not react to any user action
  * @property {boolean} [customized] - customized dropdown, full height, scrollbar always visible on mobile
@@ -126,7 +126,7 @@ Dropdown.defaultProps = {
     itemTemplate: null,
     onSelect: (__item, __e) => {},
     placeholder: '',
-    searchKey: 'name',
+    nameKey: 'name',
 };
 
 export default Dropdown;
