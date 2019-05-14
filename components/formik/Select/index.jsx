@@ -29,6 +29,7 @@ function FormikSelect({field: {enum_titles, enum_values, name, label, value}}) {
                             name: enum_titles[i],
                             value,
                         }))}
+                        onDidMount={item => form.setFieldValue(name, item.value)}
                         onSelect={item => form.setFieldValue(name, item.value)}
                     />
                 )}

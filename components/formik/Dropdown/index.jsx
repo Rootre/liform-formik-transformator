@@ -11,6 +11,7 @@ function Dropdown({
                       hasError,
                       items,
                       itemTemplate,
+                      onDidMount,
                       onSelect,
                       placeholder,
                       searchKey,
@@ -21,6 +22,8 @@ function Dropdown({
 
     useEffect(() => {
         self.document.addEventListener('click', handleDocumentInteraction, true);
+
+        typeof onDidMount === 'function' && onDidMount.call(this, active);
 
         return () => {
             self.document.removeEventListener('click', handleDocumentInteraction, true);
