@@ -1,0 +1,183 @@
+{
+  "success": false,
+  "suggestedResponseStatus": 400,
+  "message": null,
+  "redirectUrl": null,
+  "registration_form": {
+    "title": "Registra\u010dn\u00ed formul\u00e1\u0159",
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string",
+        "title": "E-mail",
+        "widget": "email",
+        "defaultValue": "sadsad@sss.cz",
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "Pole je povinn\u00e9"
+          }
+        },
+        "disabled": false,
+        "empty": false,
+        "propertyOrder": 1
+      },
+      "password": {
+        "title": "Heslo",
+        "type": "object",
+        "properties": {
+          "pass": {
+            "title": "form.pass.label",
+            "type": "object",
+            "properties": {
+              "pass_value": {
+                "type": "string",
+                "title": "Heslo",
+                "attr": {
+                  "minLength": 5,
+                  "required": true,
+                  "errors": {
+                    "minLength": "Minimum je 5 znak\u016f",
+                    "required": "Pole je povinn\u00e9"
+                  }
+                },
+                "widget": "password",
+                "errors": [
+                  "Tato hodnota nen\u00ed platn\u00e1."
+                ],
+                "defaultValue": "",
+                "disabled": false,
+                "empty": false,
+                "propertyOrder": 1
+              },
+              "pass_verify": {
+                "type": "string",
+                "title": "Potvrzen\u00ed",
+                "widget": "password",
+                "defaultValue": "",
+                "attr": {
+                  "required": true,
+                  "errors": {
+                    "required": "Pole je povinn\u00e9"
+                  }
+                },
+                "disabled": false,
+                "empty": false,
+                "propertyOrder": 2
+              }
+            },
+            "propertyOrder": 1
+          }
+        },
+        "propertyOrder": 2
+      },
+      "profile": {
+        "title": "Profil z\u00e1kazn\u00edka",
+        "type": "object",
+        "properties": {
+          "gender": {
+            "widget": "choice-expanded",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "enum_titles": [
+              "Pan",
+              "Pan\u00ed"
+            ],
+            "title": "Osloven\u00ed",
+            "propertyOrder": 1
+          },
+          "firstName": {
+            "type": "string",
+            "title": "Jm\u00e9no",
+            "widget": "string",
+            "defaultValue": "sadsad",
+            "attr": {
+              "required": true,
+              "errors": {
+                "required": "Pole je povinn\u00e9"
+              }
+            },
+            "disabled": false,
+            "empty": false,
+            "propertyOrder": 2
+          },
+          "lastName": {
+            "type": "string",
+            "title": "P\u0159\u00edjmen\u00ed",
+            "widget": "string",
+            "defaultValue": "dasdsa",
+            "attr": {
+              "required": true,
+              "errors": {
+                "required": "Pole je povinn\u00e9"
+              }
+            },
+            "disabled": false,
+            "empty": false,
+            "propertyOrder": 3
+          },
+          "birth": {
+            "type": "string",
+            "title": "Datum narozen\u00ed",
+            "widget": "date",
+            "attr": {
+              "required": false
+            },
+            "disabled": false,
+            "empty": true,
+            "propertyOrder": 4
+          },
+          "newsletter": {
+            "type": "boolean",
+            "title": "P\u0159ij\u00edmat speci\u00e1ln\u00ed nab\u00eddky od na\u0161ich partner\u016f",
+            "widget": "checkbox",
+            "defaultValue": true,
+            "attr": {
+              "required": false
+            },
+            "disabled": false,
+            "empty": false,
+            "propertyOrder": 5
+          }
+        },
+        "propertyOrder": 3
+      },
+      "consent": {
+        "title": "Souhlas",
+        "type": "object",
+        "properties": {
+          "privacy-policy-101": {
+            "type": "boolean",
+            "title": "Stru\u010dn\u00e1 informace o zpracov\u00e1n\u00ed osobn\u00edch \u00fadaj\u016f fyzick\u00fdch osob na\u0161\u00ed spole\u010dnost\u00ed pro marketingov\u00e9 \u00fa\u010dely.",
+            "widget": "checkbox",
+            "defaultValue": true,
+            "attr": {
+              "required": true,
+              "errors": {
+                "required": "Pole je povinn\u00e9"
+              }
+            },
+            "disabled": false,
+            "empty": false,
+            "propertyOrder": 1
+          }
+        },
+        "propertyOrder": 4
+      },
+      "_csrf_token": {
+        "type": "string",
+        "title": "Token",
+        "widget": "hidden",
+        "defaultValue": "Dum6YUj3E3vi90Gvl057JC358HkfKy3xViaYokIuBwo",
+        "attr": {
+          "required": false
+        },
+        "disabled": false,
+        "empty": true,
+        "propertyOrder": 5
+      }
+    }
+  }
+}

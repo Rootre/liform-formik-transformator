@@ -71,6 +71,7 @@ const mapLiformTypesToFormTypes = {
 };
 
 const mapLiformTypesToYupMethods = {
+    boolean: 'boolean',
     choice: 'string',
     maxLength: 'max',
     minLength: 'min',
@@ -147,6 +148,16 @@ function _assembleValidationRules(rules) {
 }
 
 /**
+ * Checks whether field represents required checkbox - its because Yup needs a little bit different validation rule for this case
+ * @param {object} field
+ * @return {boolean}
+ * @private
+ */
+function _isRequiredCheckbox(field) {
+    return 'type' in field && field.type === 'boolean' && ('required' in field && field.required || 'attr' in field && 'required' in field.attr && field.attr.required);
+}
+
+/**
  * Returns schema for formik initialValues parameter
  * @param {object} properties
  * @return {Yup.schema}
@@ -162,7 +173,11 @@ function _generateValidationSchema(properties) {
         if (_isGroup(slug)) {
             contents = _generateValidationSchema(slug.properties);
         } else {
-            contents = _assembleValidationRules(_getValidationRules(slug));
+            contents = _assembleValidationRules(
+                _isRequiredCheckbox(slug)
+                    ? _getCheckboxValidationRule(slug)
+                    : _getValidationRules(slug)
+            );
         }
 
         contents && Object.assign(schema, {
@@ -286,7 +301,7 @@ function _getCheckboxValidationRule(field) {
         }, {
             method: 'oneOf',
             value: [true],
-            error: _getValidationError(field, 'boolean'),
+            error: _getValidationError(field, 'required'),
         }
     ];
 }
@@ -312,6 +327,9 @@ function _getValidationError(field, type) {
     if (field.errors && field.errors[type]) {
         return field.errors[type];
     }
+    if ('attr' in field && field.attr.errors && field.attr.errors[type]) {
+        return field.attr.errors[type];
+    }
     // TODO: once error messages are part of schema, show them here
     return type === 'boolean' ? 'required' : `${mapLiformTypesToYupMethods[type]} '${field[type]}' error`;
 }
@@ -328,14 +346,8 @@ function _getValidationRules(field) {
         return [];
     }
 
-    if ('type' in field) {
-        if (field.type === 'boolean' && 'required' in field && field.required) {
-            return _getCheckboxValidationRule(field);
-        }
-        if (mapLiformTypesToYupMethods[field.type]) {
-            rules.push({method: mapLiformTypesToYupMethods[field.type]});
-        }
-    }
+    rules.push({method: field.type ? mapLiformTypesToYupMethods[field.type] : 'string'});
+
     if ('attr' in field) {
         rules = rules.concat(_getValidationRules(field.attr));
     }

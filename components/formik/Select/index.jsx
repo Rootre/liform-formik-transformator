@@ -1,7 +1,12 @@
 import React from 'react';
 import {Field} from 'formik';
 
+import Dropdown from '../Dropdown';
 import FormikError from '../Error';
+
+import getFieldError from 'Helpers/getFieldError';
+
+import styles from './style.scss';
 
 /**
  * @param {object} field
@@ -10,15 +15,22 @@ import FormikError from '../Error';
  */
 function FormikSelect({field: {enum_titles, enum_values, name, label, value}}) {
     return (
-        <div>
-            {label && <label htmlFor={name}>{label}</label>}
+        <div className={styles.wrapper}>
+            {label && <label className={styles.label} htmlFor={name}>{label}</label>}
             <Field name={name}>
                 {({field, form}) => (
-                    <select defaultValue={value} onChange={e => form.setFieldValue(name, e.target.value)}>
-                        {enum_values.map((value, i) => (
-                            <option key={i} value={value}>{enum_titles[i]}</option>
-                        ))}
-                    </select>
+                    <Dropdown
+                        activeItem={value ? {
+                            name: enum_titles[enum_values.indexOf(value)],
+                            value,
+                        } : false}
+                        hasError={getFieldError(name, form)}
+                        items={enum_values.map((value, i) => ({
+                            name: enum_titles[i],
+                            value,
+                        }))}
+                        onSelect={item => form.setFieldValue(name, item.value)}
+                    />
                 )}
             </Field>
             <FormikError name={name}/>
