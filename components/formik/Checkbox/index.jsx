@@ -3,6 +3,7 @@ import {Field} from 'formik';
 import classNames from 'classnames';
 
 import FormikError from '../Error';
+import FormikLabel from '../Label';
 
 import getFieldError from 'Helpers/getFieldError';
 
@@ -33,7 +34,7 @@ function FormikCheckbox({field: {disabled, label, name, value}}) {
                         }}
                         type={'checkbox'}
                     />
-                    <label htmlFor={name}>{label}</label>
+                    <FormikLabel className={styles.label} name={name} label={label}/>
                     <FormikError name={name}/>
                 </div>
             )}

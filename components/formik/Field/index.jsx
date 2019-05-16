@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import FormikCheckbox from '../Checkbox';
 import FormikCheckboxes from '../Checkboxes';
 import FormikError from '../Error';
+import FormikLabel from '../Label';
 import FormikRadio from '../Radio';
 import FormikSelect from '../Select';
 
@@ -34,7 +35,7 @@ function FormikField({field, field: {disabled, label, name, required, type}}) {
                 <Field name={name}>
                     {({field, form}) => (
                         <div className={styles.wrapper}>
-                            {label && <label className={styles.label} htmlFor={name}>{label}</label>}
+                            <FormikLabel name={name} label={label}/>
                             <input className={classNames(styles.input, {
                                 [styles.error]: getFieldError(name, form),
                             })} disabled={disabled} id={name} type={type} {...field}/>

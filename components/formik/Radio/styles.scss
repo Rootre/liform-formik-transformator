@@ -1,8 +1,23 @@
 @import '~Sass/_helpers.scss';
 
 .label {
-    display: block;
-    margin-bottom: 6px;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 27px;
+    position: relative;
+
+    &:before {
+        @include square(18px);
+        border: 1px solid $silver;
+        border-radius: 50%;
+        content: '';
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
+    &:hover:before {
+        border-color: $tundora;
+    }
 }
 .radio {
     display: inline-block;
@@ -44,25 +59,9 @@
             }
         }
     }
-    label {
-        cursor: pointer;
-        display: inline-block;
-        padding-left: 27px;
-        position: relative;
-
-        &:before {
-            @include square(18px);
-            border: 1px solid $silver;
-            border-radius: 50%;
-            content: '';
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
-        &:hover:before {
-            border-color: $tundora;
-        }
-    }
+}
+.title {
+    margin-bottom: 6px;
 }
 .wrapper {
     color: $tundora;

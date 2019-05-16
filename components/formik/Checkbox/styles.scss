@@ -1,19 +1,32 @@
 @import '~Sass/_helpers.scss';
 
 .label {
-    display: block;
-    margin-bottom: 6px;
-}
-.wrapper {
     color: $tundora;
+    cursor: pointer;
+    display: inline-block;
     font-size: 15px;
     line-height: 22px;
+    margin-bottom: 0;
+
+    &:before {
+        @include square(18px);
+        border: 1px solid $silver;
+        content: '';
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
+    &:hover:before {
+        border-color: $tundora;
+    }
+}
+.wrapper {
     margin-bottom: 15px;
     padding-left: 32px;
     position: relative;
 
     &.error {
-        label:before {
+        .label:before {
             border-color: $red-orange;
         }
     }
@@ -47,22 +60,6 @@
                 background-color: $california;
                 border-color: $california;
             }
-        }
-    }
-    label {
-        cursor: pointer;
-        display: inline-block;
-
-        &:before {
-            @include square(18px);
-            border: 1px solid $silver;
-            content: '';
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
-        &:hover:before {
-            border-color: $tundora;
         }
     }
 }
