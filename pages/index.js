@@ -2,12 +2,12 @@ import Head from 'next/head';
 
 import FormikGenerator from 'Components/formik/Generator';
 
-import liformSchema from 'Consts/aaaa.json';
+import liformSchema from 'Consts/aaa_json.json';
 import Liform2Formik from 'Prototypes/Liform2Formik';
 
 function Index() {
 
-    const transformator = new Liform2Formik(liformSchema.registration_form);
+    const transformator = new Liform2Formik(liformSchema.login_form);
 
     const handleSubmit = props => {
         console.log(props);

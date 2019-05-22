@@ -15,6 +15,12 @@ import styles from './style.scss';
 
 /**
  * @type {Field}
+ * @param {object} field
+ * @param {boolean} [field.disabled]
+ * @param {string} [field.label]
+ * @param {string} field.name
+ * @param {boolean} [field.required]
+ * @param {string} field.type
  * @return {React.Component}
  * @constructor
  */

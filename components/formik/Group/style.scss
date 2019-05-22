@@ -1,0 +1,27 @@
+@import '~Sass/_helpers.scss';
+
+.child {
+    padding: 0 5px;
+
+    &:first-child {
+        padding-left: 0;
+    }
+    &:last-child {
+        padding-right: 0;
+    }
+
+    @include media(desktop) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+.inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+
+    .child {
+        flex-grow: 1;
+    }
+}

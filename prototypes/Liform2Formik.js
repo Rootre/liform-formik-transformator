@@ -250,6 +250,7 @@ function _generateGroup(slug, levels) {
     return {
         title: slug.title,
         name: levels[levels.length - 1],
+        block: slug.block,
         children: _generateGroupChildren(slug.properties, levels),
     };
 }
