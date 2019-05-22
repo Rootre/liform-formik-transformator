@@ -18,6 +18,8 @@ import * as Yup from 'yup';
  * Form group
  * @typedef {object} Group
  * @property {string} name
+ * @property {string} [block]
+ * @property {string} [title]
  * @property {Children} children
  */
 
