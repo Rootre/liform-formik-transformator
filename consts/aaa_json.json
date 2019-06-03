@@ -189,6 +189,20 @@
         "empty": true,
         "propertyOrder": 1
       },
+      "phone": {
+        "type": "string",
+        "title": "Phone number",
+        "widget": "phone",
+        "attr": {
+          "required": true,
+          "errors": {
+            "required": "Pole je povinn\u00e9"
+          }
+        },
+        "disabled": false,
+        "empty": true,
+        "propertyOrder": 1
+      },
       "password": {
         "type": "string",
         "title": "Heslo",

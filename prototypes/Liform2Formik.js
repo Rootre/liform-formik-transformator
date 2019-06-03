@@ -65,6 +65,7 @@ const mapLiformWidgetsToFormTypes = {
     date: 'date',
     email: 'email',
     password: 'password',
+    phone: 'tel',
 };
 
 const mapLiformTypesToFormTypes = {

@@ -1,0 +1,21 @@
+@import "~Sass/_helpers.scss";
+
+.wrapper {
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.spinner {
+    animation: rotate 500ms linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

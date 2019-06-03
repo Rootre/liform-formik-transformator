@@ -26,15 +26,18 @@
   },
   "homepage": "https://github.com/Rootre/liform-formik-transformator#readme",
   "dependencies": {
-    "formik": "^1.5.4",
+    "formik": "^1.5.7",
+    "libphonenumber-js": "^1.7.18",
     "next": "^8.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "svg-country-flags": "^1.2.6",
     "yup": "^0.27.0"
   },
   "devDependencies": {
     "@zeit/next-sass": "^1.0.1",
     "classnames": "^2.2.6",
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.12.0",
+    "react-svg-loader": "^3.0.2"
   }
 }

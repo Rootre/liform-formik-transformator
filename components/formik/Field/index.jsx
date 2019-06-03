@@ -1,17 +1,12 @@
 import React from 'react';
 import {Field} from 'formik';
-import classNames from 'classnames';
 
 import FormikCheckbox from '../Checkbox';
 import FormikCheckboxes from '../Checkboxes';
-import FormikError from '../Error';
-import FormikLabel from '../Label';
+import FormikInput from '../Input';
+import FormikPhone from '../phone-number/PhoneNumber';
 import FormikRadio from '../Radio';
 import FormikSelect from '../Select';
-
-import getFieldError from 'Helpers/getFieldError';
-
-import styles from './style.scss';
 
 /**
  * @type {Field}
@@ -24,7 +19,8 @@ import styles from './style.scss';
  * @return {React.Component}
  * @constructor
  */
-function FormikField({field, field: {disabled, label, name, required, type}}) {
+function FormikField({field, field: {name, type}}) {
+    console.log('FormikField render!', name);
     switch (type) {
         case 'checkbox':
             return <FormikCheckbox field={field}/>;
@@ -36,20 +32,10 @@ function FormikField({field, field: {disabled, label, name, required, type}}) {
             return <Field name={name} type={'hidden'}/>;
         case 'checkboxes':
             return <FormikCheckboxes field={field}/>;
+        case 'tel':
+            return <FormikPhone defaultCountry={'CZ'} field={field}/>;
         default:
-            return (
-                <Field name={name}>
-                    {({field, form}) => (
-                        <div className={styles.wrapper}>
-                            <FormikLabel name={name} label={label}/>
-                            <input className={classNames(styles.input, {
-                                [styles.error]: getFieldError(name, form),
-                            })} disabled={disabled} id={name} type={type} {...field}/>
-                            <FormikError name={name}/>
-                        </div>
-                    )}
-                </Field>
-            );
+            return <FormikInput field={field}/>;
     }
 }
 
