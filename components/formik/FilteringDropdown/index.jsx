@@ -109,7 +109,9 @@ function _itemsTemplate(items, itemTemplate, nameKey, onClick) {
         <div key={i} className={styles.item} onClick={e => onClick(item, e)}>
             {itemTemplate
                 ? itemTemplate(item)
-                : <span>{item[nameKey]}</span>
+                : item.highlightedResult
+                    ? <span dangerouslySetInnerHTML={{__html: item.highlightedResult}}/>
+                    : <span>{item[nameKey]}</span>
             }
         </div>
     ));
