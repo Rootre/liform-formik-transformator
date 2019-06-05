@@ -78,6 +78,7 @@
         background: $white;
         border-top: none;
         margin: -1px 0 0 -1px;
+        min-width: 200px;
         position: absolute;
         top: 100%;
         width: 100%;
@@ -86,9 +87,11 @@
     .input {
         box-sizing: border-box;
         display: block;
+        font-size: 14px;
+        margin: 15px auto 5px;
         outline: none;
+        padding: 5px;
         width: 90%;
-        margin: auto;
     }
     .item {
         background-color: transparent;

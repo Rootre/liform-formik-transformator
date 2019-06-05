@@ -73,6 +73,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
                             />
                             <FilteringDropdown
                                 activeItem={_countries.filter(({value}) => value === country).pop()}
+                                autofocus
                                 className={styles.dropdown}
                                 hasError={hasError}
                                 items={_countries}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import classNames from 'classnames';
 
 import useFilterItems from 'Hooks/useFilterItems';
@@ -6,21 +6,23 @@ import useFilterItems from 'Hooks/useFilterItems';
 import styles from './styles.scss';
 
 function FilteringDropdown({
-                      activeItem,
-                      activeItemTemplate,
-                      className,
-                      disabled,
-                      hasError,
-                      items,
-                      itemTemplate,
-                      onDidMount,
-                      onSelect,
-                      placeholder,
-                      nameKey,
-                  }) {
+                               activeItem,
+                               activeItemTemplate,
+                               autofocus,
+                               className,
+                               disabled,
+                               hasError,
+                               items,
+                               itemTemplate,
+                               onDidMount,
+                               onSelect,
+                               placeholder,
+                               nameKey,
+                           }) {
     const [opened, setOpened] = useState(false);
     const [active, setActive] = useState(activeItem || items[0]);
     const dropdownRef = React.createRef();
+    const inputRef = React.createRef();
 
     const [filteredItems, searchText, setSearchText] = useFilterItems(items, nameKey);
 
@@ -45,14 +47,13 @@ function FilteringDropdown({
         }
     }
 
-    const handleDocumentInteraction = ({target}) => {
+    const handleDocumentInteraction = useCallback(({target}) => {
         if (closed || !dropdownRef.current || dropdownRef.current.contains(target)) {
             return;
         }
 
         setOpened(false);
-    };
-
+    }, [dropdownRef]);
 
     useEffect(() => {
         self.document.addEventListener('click', handleDocumentInteraction, true);
@@ -62,7 +63,7 @@ function FilteringDropdown({
         return () => {
             self.document.removeEventListener('click', handleDocumentInteraction, true);
         }
-    }, []);
+    }, [handleDocumentInteraction]);
     useEffect(() => {
         if (!activeItem || activeItem[nameKey] === active[nameKey]) {
             return;
@@ -70,6 +71,9 @@ function FilteringDropdown({
 
         setActive(activeItem);
     }, [activeItem]);
+    useEffect(() => {
+        opened && autofocus && inputRef.current.focus();
+    }, [opened]);
 
     return (
         <div ref={dropdownRef} className={classNames(styles.dropdown, className, {
@@ -84,7 +88,7 @@ function FilteringDropdown({
                 <div className={styles.dropdownContent}>
                     <input className={styles.input} type={'text'} onChange={({target: {value}}) => {
                         setSearchText(value);
-                    }} value={searchText}/>
+                    }} ref={inputRef} value={searchText}/>
                     <div className={styles.list}>
                         {_itemsTemplate(filteredItems, itemTemplate, nameKey, select)}
                     </div>
