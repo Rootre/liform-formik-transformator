@@ -19,8 +19,8 @@ import FormikSelect from '../Select';
  * @return {React.Component}
  * @constructor
  */
-function FormikField({field, field: {name, type}}) {
-    switch (type) {
+function FormikField({field}) {
+    switch (field.type) {
         case 'checkbox':
             return <FormikCheckbox field={field}/>;
         case 'radio':
@@ -28,7 +28,7 @@ function FormikField({field, field: {name, type}}) {
         case 'select':
             return <FormikSelect field={field}/>;
         case 'hidden':
-            return <Field name={name} type={'hidden'}/>;
+            return <Field name={field.name} type={'hidden'}/>;
         case 'checkboxes':
             return <FormikCheckboxes field={field}/>;
         case 'tel':

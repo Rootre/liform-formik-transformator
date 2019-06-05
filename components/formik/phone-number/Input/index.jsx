@@ -9,6 +9,7 @@ import FormikError from '../../Error';
 import FormikLabel from '../../Label';
 
 import getFieldError from 'Helpers/getFieldError';
+import getSingleFieldErrors from 'Helpers/getSingleFieldErrors';
 
 import inputStyles from '../../Input/style.scss';
 import styles from './style.scss';
@@ -18,7 +19,7 @@ const _countries = Object.keys(countries).map(country => ({
     value: country,
 }));
 
-function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, name, required, type}}) {
+function PhoneNumberInput({autofocus, defaultCountry, field, field: {name}}) {
     const [country, setCountry] = useState(defaultCountry);
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
@@ -37,6 +38,11 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
         return phone && val ? val.isValid() : false;
     }
 
+    function handleFilterSelect({value}) {
+        setCountry(value);
+        inputRef.current.focus();
+    }
+
     useEffect(() => {
         autofocus && inputRef.current.focus();
     }, [autofocus]);
@@ -47,14 +53,16 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
                 return;
             }
 
-            return 'Format error';
+            const errors = getSingleFieldErrors(field);
+
+            return errors.format || errors[Object.keys(errors).shift()];
         }}>
             {({field, form}) => {
                 const hasError = getFieldError(name, form);
 
                 return (
                     <div className={styles.wrapper}>
-                        <FormikLabel label={label}/>
+                        <FormikLabel label={field.label}/>
                         <div className={classNames(styles.container, {
                             [styles.error]: hasError,
                         })}>
@@ -63,10 +71,10 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
                                 className={classNames(inputStyles.input, styles.input, {
                                     [inputStyles.error]: hasError,
                                 })}
-                                disabled={disabled}
+                                disabled={field.disabled}
                                 id={name}
                                 name={name}
-                                type={type}
+                                type={field.type}
                                 ref={inputRef}
                                 placeholder={_getTemplate()}
                                 value={_getPhoneFormatted(field.value)}
@@ -77,7 +85,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
                                 className={styles.dropdown}
                                 hasError={hasError}
                                 items={_countries}
-                                onSelect={({value}) => setCountry(value)}
+                                onSelect={item => handleFilterSelect(item)}
                             />
                         </div>
                         <FormikError name={name}/>
