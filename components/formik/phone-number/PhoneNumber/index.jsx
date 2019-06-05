@@ -1,13 +1,13 @@
 import React from 'react';
 
-import FormikInput from '../Input';
+import PhoneNumberInput from '../Input';
 
 import styles from './styles.scss';
 
 function PhoneNumber({defaultCountry, field}) {
     return (
         <div className={styles.wrapper}>
-            <FormikInput
+            <PhoneNumberInput
                 defaultCountry={defaultCountry}
                 field={field}
             />

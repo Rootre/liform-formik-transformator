@@ -55,10 +55,12 @@ function FilteringDropdown({
         setOpened(false);
     }, [dropdownRef]);
 
+
+    useEffect(() => {
+        typeof onDidMount === 'function' && onDidMount.call(this, active);
+    }, []);
     useEffect(() => {
         self.document.addEventListener('click', handleDocumentInteraction, true);
-
-        typeof onDidMount === 'function' && onDidMount.call(this, active);
 
         return () => {
             self.document.removeEventListener('click', handleDocumentInteraction, true);

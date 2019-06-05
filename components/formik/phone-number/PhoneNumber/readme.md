@@ -1,7 +1,7 @@
 
 # PhoneNumberInput component
 
-This is for world wide phone validation with country selection input 
+Designed to use with Formik 
 
 ## Where to use
 

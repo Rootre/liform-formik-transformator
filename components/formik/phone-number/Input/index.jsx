@@ -19,7 +19,7 @@ const _countries = Object.keys(countries).map(country => ({
     value: country,
 }));
 
-function PhoneNumberInput({autofocus, defaultCountry, field, field: {name}}) {
+function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, label, name, type}}) {
     const [country, setCountry] = useState(defaultCountry);
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
@@ -62,7 +62,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {name}}) {
 
                 return (
                     <div className={styles.wrapper}>
-                        <FormikLabel label={field.label}/>
+                        <FormikLabel label={label}/>
                         <div className={classNames(styles.container, {
                             [styles.error]: hasError,
                         })}>
@@ -71,10 +71,10 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {name}}) {
                                 className={classNames(inputStyles.input, styles.input, {
                                     [inputStyles.error]: hasError,
                                 })}
-                                disabled={field.disabled}
+                                disabled={disabled}
                                 id={name}
                                 name={name}
-                                type={field.type}
+                                type={type}
                                 ref={inputRef}
                                 placeholder={_getTemplate()}
                                 value={_getPhoneFormatted(field.value)}
