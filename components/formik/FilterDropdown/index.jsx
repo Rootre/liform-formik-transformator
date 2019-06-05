@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 
-import useFilterItems from 'Hooks/useFilterItems';
-
 import styles from './styles.scss';
 
-function FilteringDropdown({
+function FilterDropdown({
                       activeItem,
                       activeItemTemplate,
                       className,
@@ -22,7 +20,14 @@ function FilteringDropdown({
     const [active, setActive] = useState(activeItem || items[0]);
     const dropdownRef = React.createRef();
 
-    const [filteredItems, searchText, setSearchText] = useFilterItems(items, nameKey);
+    const handleDocumentInteraction = ({target}) => {
+        console.log('handleDocumentInteraction', closed, !dropdownRef.current, dropdownRef.current.contains(target));
+        if (closed || !dropdownRef.current || dropdownRef.current.contains(target)) {
+            return;
+        }
+
+        setOpened(false);
+    };
 
     function toggleOpen() {
         if (disabled) {
@@ -45,14 +50,6 @@ function FilteringDropdown({
         }
     }
 
-    const handleDocumentInteraction = ({target}) => {
-        if (closed || !dropdownRef.current || dropdownRef.current.contains(target)) {
-            return;
-        }
-
-        setOpened(false);
-    };
-
 
     useEffect(() => {
         self.document.addEventListener('click', handleDocumentInteraction, true);
@@ -63,6 +60,7 @@ function FilteringDropdown({
             self.document.removeEventListener('click', handleDocumentInteraction, true);
         }
     }, []);
+
     useEffect(() => {
         if (!activeItem || activeItem[nameKey] === active[nameKey]) {
             return;
@@ -82,11 +80,8 @@ function FilteringDropdown({
             </p>
             {opened && (
                 <div className={styles.dropdownContent}>
-                    <input className={styles.input} type={'text'} onChange={({target: {value}}) => {
-                        setSearchText(value);
-                    }} value={searchText}/>
                     <div className={styles.list}>
-                        {_itemsTemplate(filteredItems, itemTemplate, nameKey, select)}
+                        {_itemsTemplate(items, itemTemplate, nameKey, select)}
                     </div>
                 </div>
             )}
@@ -119,12 +114,12 @@ function _itemsTemplate(items, itemTemplate, nameKey, onClick) {
  * @property {function} [itemTemplate] - takes item and event object and returns jsx
  * @property {function} [onSelect] - fires upon item selection
  * @property {string} [placeholder] - placeholder text to show if no item is selected
- * @property {string} nameKey - item key
+ * @property {string} nameKey - object name param which will be shown in the dropdown
  * @property {object} [activeItem] - currently selected item
  * @property {boolean} [disabled] - when dropdown is disabled, it will not react to any user action
  * @property {boolean} [customized] - customized dropdown, full height, scrollbar always visible on mobile
  */
-FilteringDropdown.defaultProps = {
+FilterDropdown.defaultProps = {
     activeItem: {},
     activeItemTemplate: null,
     className: '',
@@ -136,4 +131,4 @@ FilteringDropdown.defaultProps = {
     nameKey: 'name',
 };
 
-export default FilteringDropdown;
+export default FilterDropdown;

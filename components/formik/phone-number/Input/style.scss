@@ -1,8 +1,32 @@
 @import '~Sass/_helpers.scss';
 
+.container {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+
+    &:hover {
+        .dropdown,
+        .input {
+            border-color: $tundora;
+        }
+    }
+    &.error[class] {
+        .dropdown,
+        .input {
+            border-color: $red-orange;
+        }
+    }
+}
 .dropdown {
-    display: inline-block;
     margin: 0;
 }
+.input {
+    border-left: 0;
 
-.wrapper {}
+    &:focus~.dropdown {
+        border-color: $tundora;
+    }
+}
+.wrapper {
+    margin-bottom: 15px;
+}

@@ -4,19 +4,22 @@ import {countries} from 'libphonenumber-js/metadata.min.json';
 import classNames from 'classnames';
 import {Field} from 'formik';
 
-import Dropdown from '../../Dropdown';
+import FilteringDropdown from '../../FilteringDropdown';
 import FormikError from '../../Error';
 import FormikLabel from '../../Label';
 
 import getFieldError from 'Helpers/getFieldError';
 
 import inputStyles from '../../Input/style.scss';
+import styles from './style.scss';
 
-const _countries = Object.keys(countries).map(name => ({name}));
+const _countries = Object.keys(countries).map(country => ({
+    name: `+${countries[country][0]}`,
+    value: country,
+}));
 
 function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, name, required, type}}) {
     const [country, setCountry] = useState(defaultCountry);
-    const [phone, setPhone] = useState('wefwe');
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
 
@@ -31,11 +34,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
     function _isValid(phone) {
         const val = parsePhoneNumberFromString(phone, country);
 
-        return val ? val.isValid() : false;
-    }
-
-    function handleChange(e) {
-        setPhone(e.target.value);
+        return phone && val ? val.isValid() : false;
     }
 
     useEffect(() => {
@@ -48,33 +47,42 @@ function PhoneNumberInput({autofocus, defaultCountry, field: {disabled, label, n
                 return;
             }
 
-            return 'Error';
+            return 'Format error';
         }}>
-            {({field, form}) => (
-                <div className={inputStyles.wrapper}>
-                    <FormikLabel name={name} label={label}/>
-                    <Dropdown
-                        activeItem={_countries.filter(({name}) => name === country).pop()}
-                        className={inputStyles.dropdown}
-                        items={_countries}
-                        onSelect={({name}) => setCountry(name)}
-                    />
-                    <input
-                        className={classNames(inputStyles.input, {
-                            [inputStyles.error]: getFieldError(name, form),
-                        })}
-                        disabled={disabled}
-                        id={name}
-                        type={type}
-                        ref={inputRef}
-                        placeholder={_getTemplate()}
-                        value={_getPhoneFormatted(phone)}
-                        onChange={e => handleChange(e)}
-                        onBlur={() => form.setFieldValue(name, _getPhoneFormatted(phone))}
-                    />
-                    <FormikError name={name}/>
-                </div>
-            )}
+            {({field, form}) => {
+                const hasError = getFieldError(name, form);
+
+                return (
+                    <div className={styles.wrapper}>
+                        <FormikLabel label={label}/>
+                        <div className={classNames(styles.container, {
+                            [styles.error]: hasError,
+                        })}>
+                            <input
+                                {...field}
+                                className={classNames(inputStyles.input, styles.input, {
+                                    [inputStyles.error]: hasError,
+                                })}
+                                disabled={disabled}
+                                id={name}
+                                name={name}
+                                type={type}
+                                ref={inputRef}
+                                placeholder={_getTemplate()}
+                                value={_getPhoneFormatted(field.value)}
+                            />
+                            <FilteringDropdown
+                                activeItem={_countries.filter(({value}) => value === country).pop()}
+                                className={styles.dropdown}
+                                hasError={hasError}
+                                items={_countries}
+                                onSelect={({value}) => setCountry(value)}
+                            />
+                        </div>
+                        <FormikError name={name}/>
+                    </div>
+                );
+            }}
         </Field>
     );
 }

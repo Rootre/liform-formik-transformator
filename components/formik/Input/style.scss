@@ -12,7 +12,7 @@
 
     &:hover,
     &:focus {
-        border: 1px solid $tundora;
+        border-color: $tundora;
     }
     &.error {
         border-color: $red-orange;

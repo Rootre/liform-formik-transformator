@@ -20,7 +20,6 @@ import FormikSelect from '../Select';
  * @constructor
  */
 function FormikField({field, field: {name, type}}) {
-    console.log('FormikField render!', name);
     switch (type) {
         case 'checkbox':
             return <FormikCheckbox field={field}/>;
