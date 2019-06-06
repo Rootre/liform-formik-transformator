@@ -21,6 +21,7 @@ function Index() {
             </Head>
             <h1>Liform -> Formik</h1>
             <FormikGenerator
+                defaultCountry={'CZ'}
                 button={<button type={'submit'}>Odeslat</button>}
                 structure={transformator.generateStructure()}
                 defaultValues={transformator.generateDefaultValues()}

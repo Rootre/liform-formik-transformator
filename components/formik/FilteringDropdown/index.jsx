@@ -88,9 +88,11 @@ function FilteringDropdown({
             </p>
             {opened && (
                 <div className={styles.dropdownContent}>
-                    <input className={styles.input} type={'text'} onChange={({target: {value}}) => {
-                        setSearchText(value);
-                    }} ref={inputRef} value={searchText}/>
+                    <div className={styles.input}>
+                        <input type={'text'} onChange={({target: {value}}) => {
+                            setSearchText(value);
+                        }} ref={inputRef} value={searchText}/>
+                    </div>
                     <div className={styles.list}>
                         {_itemsTemplate(filteredItems, itemTemplate, nameKey, select)}
                     </div>

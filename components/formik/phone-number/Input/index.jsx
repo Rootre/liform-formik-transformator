@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {AsYouType, formatIncompletePhoneNumber, parsePhoneNumberFromString} from 'libphonenumber-js';
 import {countries} from 'libphonenumber-js/metadata.min.json';
 import classNames from 'classnames';
-import {Field} from 'formik';
+import {FastField} from 'formik';
 
 import FilteringDropdown from '../../FilteringDropdown';
 import FormikError from '../../Error';
@@ -19,15 +19,21 @@ const _countries = Object.keys(countries).map(country => ({
     value: country,
 }));
 
-function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, label, name, type}}) {
-    const [country, setCountry] = useState(defaultCountry);
+function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, label, name, type, value}}) {
+    const parsedDefaultValue = value && parsePhoneNumberFromString(value);
+
+    const [country, setCountry] = useState(parsedDefaultValue ? parsedDefaultValue.country : defaultCountry);
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
 
-    function _getPhoneFormatted(phone) {
-        return formatIncompletePhoneNumber(phone, country);
+    function _getFullNumber(phone) {
+        const parsedPhone = parsePhoneNumberFromString(phone, country);
+        return parsedPhone ? parsedPhone.number : phone;
     }
-
+    function _getPhoneFormatted(phone) {
+        const parsedPhone = parsePhoneNumberFromString(phone, country);
+        return formatIncompletePhoneNumber(parsedPhone ? parsedPhone.nationalNumber : phone, country);
+    }
     function _getTemplate() {
         return asYouType.getTemplate();
     }
@@ -35,7 +41,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     function _isValid(phone) {
         const val = parsePhoneNumberFromString(phone, country);
 
-        return phone && val ? val.isValid() : false;
+        return val && val.isValid();
     }
 
     function handleFilterSelect({value}) {
@@ -48,14 +54,14 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     }, [autofocus]);
 
     return (
-        <Field name={name} validate={value => {
+        <FastField name={name} validate={value => {
             if (_isValid(value)) {
                 return;
             }
 
             const errors = getSingleFieldErrors(field);
 
-            return errors.format || errors[Object.keys(errors).shift()];
+            return errors.format || errors[Object.keys(errors)[0]];
         }}>
             {({field, form}) => {
                 const hasError = getFieldError(name, form);
@@ -68,6 +74,10 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
                         })}>
                             <input
                                 {...field}
+                                onChange={e => {
+                                    e.target.value = _getFullNumber(e.target.value);
+                                    field.onChange(e);
+                                }}
                                 className={classNames(inputStyles.input, styles.input, {
                                     [inputStyles.error]: hasError,
                                 })}
@@ -80,11 +90,14 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
                                 value={_getPhoneFormatted(field.value)}
                             />
                             <FilteringDropdown
-                                activeItem={_countries.filter(({value}) => value === country).pop()}
+                                activeItem={_countries.filter(({value}) => value === country).slice(-1)[0]}
                                 autofocus
                                 className={styles.dropdown}
                                 hasError={hasError}
                                 items={_countries}
+                                itemTemplate={({highlightedResult, name}) => (
+                                    <div dangerouslySetInnerHTML={{__html: highlightedResult || name}}/>
+                                )}
                                 onSelect={item => handleFilterSelect(item)}
                             />
                         </div>
@@ -92,7 +105,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
                     </div>
                 );
             }}
-        </Field>
+        </FastField>
     );
 }
 

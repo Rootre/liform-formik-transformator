@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Field} from 'formik';
 
 import FormikCheckbox from '../Checkbox';
@@ -7,6 +7,8 @@ import FormikInput from '../Input';
 import FormikPhone from '../phone-number/PhoneNumber';
 import FormikRadio from '../Radio';
 import FormikSelect from '../Select';
+
+import GeneratorContext from '../Generator/Context';
 
 /**
  * @type {Field}
@@ -20,6 +22,8 @@ import FormikSelect from '../Select';
  * @constructor
  */
 function FormikField({field}) {
+    const defaultCountry = useContext(GeneratorContext);
+
     switch (field.type) {
         case 'checkbox':
             return <FormikCheckbox field={field}/>;
@@ -32,7 +36,7 @@ function FormikField({field}) {
         case 'checkboxes':
             return <FormikCheckboxes field={field}/>;
         case 'tel':
-            return <FormikPhone defaultCountry={'CZ'} field={field}/>;
+            return <FormikPhone defaultCountry={defaultCountry} field={field}/>;
         default:
             return <FormikInput field={field}/>;
     }
