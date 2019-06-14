@@ -78,6 +78,7 @@
               "Pan",
               "Pan\u00ed"
             ],
+            "defaultValue": "male",
             "title": "Osloven\u00ed",
             "propertyOrder": 1
           },
@@ -336,7 +337,8 @@
             },
             "disabled": false,
             "empty": true,
-            "propertyOrder": 2
+            "propertyOrder": 2,
+            "defaultValue": "7"
           },
           "year": {
             "widget": "choice",
@@ -592,7 +594,8 @@
             },
             "disabled": false,
             "empty": true,
-            "propertyOrder": 3
+            "propertyOrder": 3,
+            "defaultValue": "1989"
           }
         },
         "block": "inline",

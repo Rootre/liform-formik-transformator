@@ -24,7 +24,14 @@ function FormikRadio({field: {disabled, enum_titles, enum_values, name, label}})
                     <FormikLabel className={styles.title} label={label} name={name}/>
                     {enum_values.map((value, i) => (
                         <span className={styles.radio} key={i}>
-                            <input {...field} id={`${name}.${value}`} type={'radio'} value={value} disabled={disabled}/>
+                            <input
+                                {...field}
+                                id={`${name}.${value}`}
+                                type={'radio'}
+                                value={value}
+                                disabled={disabled}
+                                checked={field.value === value}
+                            />
                             <FormikLabel className={styles.label} label={enum_titles[i]} name={`${name}.${value}`}/>
                         </span>
                     ))}

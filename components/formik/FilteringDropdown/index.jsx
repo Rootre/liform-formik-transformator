@@ -67,13 +67,6 @@ function FilteringDropdown({
         }
     }, [handleDocumentInteraction]);
     useEffect(() => {
-        if (!activeItem || activeItem[nameKey] === active[nameKey]) {
-            return;
-        }
-
-        setActive(activeItem);
-    }, [activeItem]);
-    useEffect(() => {
         opened && autofocus && inputRef.current.focus();
     }, [opened]);
 
