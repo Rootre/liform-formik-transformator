@@ -15,7 +15,8 @@ import inputStyles from '../../Input/style.scss';
 import styles from './style.scss';
 
 const _countries = Object.keys(countries).map(country => ({
-    name: `+${countries[country][0]}`,
+    callCode: `+${countries[country][0]}`,
+    name: `+${countries[country][0]} ${country}`,
     value: country,
 }));
 
@@ -25,6 +26,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     const [country, setCountry] = useState(parsedDefaultValue ? parsedDefaultValue.country : defaultCountry);
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
+console.log('PhoneNumberInput render', country);
 
     function _getFullNumber(phone) {
         const parsedPhone = parsePhoneNumberFromString(phone, country);
@@ -45,6 +47,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     }
 
     function handleFilterSelect({value}) {
+        console.log('handleFilterSelect', value);
         setCountry(value);
         inputRef.current.focus();
     }
@@ -90,13 +93,18 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
                                 value={_getPhoneFormatted(field.value)}
                             />
                             <FilteringDropdown
-                                activeItem={_countries.filter(({value}) => value === country).slice(-1)[0]}
+                                activeItem={_countries.filter(({value}) => value === country)[0]}
+                                activeItemTemplate={({callCode}) => <span>{callCode}</span>}
                                 autofocus
                                 className={styles.dropdown}
+                                classNameContent={styles.dropdownContent}
                                 hasError={hasError}
                                 items={_countries}
-                                itemTemplate={({highlightedResult, name}) => (
-                                    <div dangerouslySetInnerHTML={{__html: highlightedResult || name}}/>
+                                itemTemplate={({callCode, value}) => (
+                                    <div className={styles.dropdownItem}>
+                                        <span>{callCode}</span>
+                                        <small>({value})</small>
+                                    </div>
                                 )}
                                 onSelect={item => handleFilterSelect(item)}
                             />

@@ -10,6 +10,7 @@ function FilteringDropdown({
                                activeItemTemplate,
                                autofocus,
                                className,
+                               classNameContent,
                                disabled,
                                hasError,
                                items,
@@ -17,14 +18,14 @@ function FilteringDropdown({
                                onDidMount,
                                onSelect,
                                placeholder,
-                               nameKey,
+                               searchIn,
                            }) {
     const [opened, setOpened] = useState(false);
     const [active, setActive] = useState(activeItem || items[0]);
     const dropdownRef = React.createRef();
     const inputRef = React.createRef();
 
-    const [filteredItems, searchText, setSearchText] = useFilterItems(items, nameKey);
+    const [filteredItems, searchText, setSearchText] = useFilterItems(items, searchIn);
 
     function toggleOpen() {
         if (disabled) {
@@ -35,6 +36,7 @@ function FilteringDropdown({
     }
 
     function select(item, e) {
+        console.log('FilteringDropdown select', disabled, item);
         if (disabled) {
             return;
         }
@@ -77,17 +79,17 @@ function FilteringDropdown({
             [styles.opened]: opened,
         })}>
             <p className={styles.activeItem} onClick={() => toggleOpen()}>
-                {_activeItemHTML(activeItemTemplate, nameKey, active)}
+                {_activeItemHTML(activeItemTemplate, searchIn, active)}
             </p>
             {opened && (
-                <div className={styles.dropdownContent}>
+                <div className={classNames(styles.dropdownContent, classNameContent)}>
                     <div className={styles.input}>
                         <input type={'text'} onChange={({target: {value}}) => {
                             setSearchText(value);
                         }} ref={inputRef} value={searchText}/>
                     </div>
                     <div className={styles.list}>
-                        {_itemsTemplate(filteredItems, itemTemplate, nameKey, select)}
+                        {_itemsTemplate(filteredItems, itemTemplate, searchIn, select)}
                     </div>
                 </div>
             )}
@@ -95,20 +97,20 @@ function FilteringDropdown({
     )
 }
 
-function _activeItemHTML(activeItemTemplate, nameKey, activeItem) {
+function _activeItemHTML(activeItemTemplate, searchIn, activeItem) {
     return activeItemTemplate
         ? activeItemTemplate(activeItem)
-        : <span>{activeItem[nameKey]}</span>;
+        : <span>{activeItem[searchIn]}</span>;
 }
 
-function _itemsTemplate(items, itemTemplate, nameKey, onClick) {
+function _itemsTemplate(items, itemTemplate, searchIn, onClick) {
     return items.map((item, i) => (
         <div key={i} className={styles.item} onClick={e => onClick(item, e)}>
             {itemTemplate
                 ? itemTemplate(item)
                 : item.highlightedResult
                     ? <span dangerouslySetInnerHTML={{__html: item.highlightedResult}}/>
-                    : <span>{item[nameKey]}</span>
+                    : <span>{item[searchIn]}</span>
             }
         </div>
     ));
@@ -122,7 +124,7 @@ function _itemsTemplate(items, itemTemplate, nameKey, onClick) {
  * @property {function} [itemTemplate] - takes item and event object and returns jsx
  * @property {function} [onSelect] - fires upon item selection
  * @property {string} [placeholder] - placeholder text to show if no item is selected
- * @property {string} nameKey - item key
+ * @property {string} searchIn - item key
  * @property {object} [activeItem] - currently selected item
  * @property {boolean} [disabled] - when dropdown is disabled, it will not react to any user action
  * @property {boolean} [customized] - customized dropdown, full height, scrollbar always visible on mobile
@@ -136,7 +138,7 @@ FilteringDropdown.defaultProps = {
     itemTemplate: null,
     onSelect: (__item, __e) => {},
     placeholder: '',
-    nameKey: 'name',
+    searchIn: 'name',
 };
 
 export default FilteringDropdown;

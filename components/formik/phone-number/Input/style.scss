@@ -20,6 +20,17 @@
 .dropdown {
     margin: 0;
 }
+.dropdownContent {
+    min-width: 150px;
+}
+.dropdownItem {
+    display: flex;
+    align-items: center;
+
+    small {
+        margin-left: 5px;
+    }
+}
 .input {
     border-left: 0;
     position: relative;
