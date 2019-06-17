@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {AsYouType, formatIncompletePhoneNumber, parsePhoneNumberFromString} from 'libphonenumber-js';
 import {countries} from 'libphonenumber-js/metadata.min.json';
 import classNames from 'classnames';
-import {FastField} from 'formik';
+import {Field} from 'formik';
 
 import FilteringDropdown from '../../FilteringDropdown';
 import FormikError from '../../Error';
@@ -26,9 +26,8 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     const [country, setCountry] = useState(parsedDefaultValue ? parsedDefaultValue.country : defaultCountry);
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
-console.log('PhoneNumberInput render', country);
 
-    function _getFullNumber(phone) {
+    function _getFullNumber(phone, country = country) {
         const parsedPhone = parsePhoneNumberFromString(phone, country);
         return parsedPhone ? parsedPhone.number : phone;
     }
@@ -46,8 +45,8 @@ console.log('PhoneNumberInput render', country);
         return val && val.isValid();
     }
 
-    function handleFilterSelect({value}) {
-        console.log('handleFilterSelect', value);
+    function handleFilterSelect({value}, form, field) {
+        form.setFieldValue(name, _getFullNumber(field.value, value));
         setCountry(value);
         inputRef.current.focus();
     }
@@ -57,7 +56,7 @@ console.log('PhoneNumberInput render', country);
     }, [autofocus]);
 
     return (
-        <FastField name={name} validate={value => {
+        <Field name={name} validate={value => {
             if (_isValid(value)) {
                 return;
             }
@@ -106,14 +105,14 @@ console.log('PhoneNumberInput render', country);
                                         <small>({value})</small>
                                     </div>
                                 )}
-                                onSelect={item => handleFilterSelect(item)}
+                                onSelect={item => handleFilterSelect(item, form, field)}
                             />
                         </div>
                         <FormikError name={name}/>
                     </div>
                 );
             }}
-        </FastField>
+        </Field>
     );
 }
 

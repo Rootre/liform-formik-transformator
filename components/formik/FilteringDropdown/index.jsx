@@ -36,7 +36,6 @@ function FilteringDropdown({
     }
 
     function select(item, e) {
-        console.log('FilteringDropdown select', disabled, item);
         if (disabled) {
             return;
         }
