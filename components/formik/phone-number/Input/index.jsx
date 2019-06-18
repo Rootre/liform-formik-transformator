@@ -20,6 +20,12 @@ const _countries = Object.keys(countries).map(country => ({
     value: country,
 }));
 
+function _getFullNumber(phone, country) {
+    const parsedPhone = parsePhoneNumberFromString(phone, country);
+    return parsedPhone ? parsedPhone.number : phone;
+}
+
+
 function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, label, name, type, value}}) {
     const parsedDefaultValue = value && parsePhoneNumberFromString(value);
 
@@ -27,10 +33,6 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     const asYouType = new AsYouType(country);
     const inputRef = React.createRef();
 
-    function _getFullNumber(phone, country = country) {
-        const parsedPhone = parsePhoneNumberFromString(phone, country);
-        return parsedPhone ? parsedPhone.number : phone;
-    }
     function _getPhoneFormatted(phone) {
         const parsedPhone = parsePhoneNumberFromString(phone, country);
         return formatIncompletePhoneNumber(parsedPhone ? parsedPhone.nationalNumber : phone, country);
@@ -38,7 +40,6 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
     function _getTemplate() {
         return asYouType.getTemplate();
     }
-
     function _isValid(phone) {
         const val = parsePhoneNumberFromString(phone, country);
 
@@ -77,7 +78,7 @@ function PhoneNumberInput({autofocus, defaultCountry, field, field: {disabled, l
                             <input
                                 {...field}
                                 onChange={e => {
-                                    e.target.value = _getFullNumber(e.target.value);
+                                    e.target.value = _getFullNumber(e.target.value, country);
                                     field.onChange(e);
                                 }}
                                 className={classNames(inputStyles.input, styles.input, {
