@@ -19,6 +19,7 @@ function FilteringDropdown({
                                onSelect,
                                placeholder,
                                searchIn,
+                               showFilterThreshold = 15,
                            }) {
     const [opened, setOpened] = useState(false);
     const [active, setActive] = useState(activeItem || items[0]);
@@ -68,7 +69,7 @@ function FilteringDropdown({
         }
     }, [handleDocumentInteraction]);
     useEffect(() => {
-        opened && autofocus && inputRef.current.focus();
+        opened && autofocus && inputRef.current && inputRef.current.focus();
     }, [opened]);
 
     return (
@@ -82,11 +83,13 @@ function FilteringDropdown({
             </p>
             {opened && (
                 <div className={classNames(styles.dropdownContent, classNameContent)}>
-                    <div className={styles.input}>
-                        <input type={'text'} onChange={({target: {value}}) => {
-                            setSearchText(value);
-                        }} ref={inputRef} value={searchText}/>
-                    </div>
+                    {filteredItems.length > showFilterThreshold && (
+                        <div className={styles.input}>
+                            <input type={'text'} onChange={({target: {value}}) => {
+                                setSearchText(value);
+                            }} ref={inputRef} value={searchText}/>
+                        </div>
+                    )}
                     <div className={styles.list}>
                         {_itemsTemplate(filteredItems, itemTemplate, searchIn, select)}
                     </div>

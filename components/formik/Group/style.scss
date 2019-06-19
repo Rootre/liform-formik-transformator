@@ -7,6 +7,7 @@
     flex-flow: row nowrap;
 
     .child {
+        align-self: flex-end;
         flex-grow: 1;
         padding: 0 5px;
 
