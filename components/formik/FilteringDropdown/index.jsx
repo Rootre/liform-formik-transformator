@@ -83,7 +83,7 @@ function FilteringDropdown({
             </p>
             {opened && (
                 <div className={classNames(styles.dropdownContent, classNameContent)}>
-                    {filteredItems.length > showFilterThreshold && (
+                    {items.length > showFilterThreshold && (
                         <div className={styles.input}>
                             <input type={'text'} onChange={({target: {value}}) => {
                                 setSearchText(value);
